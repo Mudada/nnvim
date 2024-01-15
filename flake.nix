@@ -2,18 +2,14 @@
   description = "Home Manager configuration of gobmeboul";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nil = {
-      url = "github:oxalica/nil";
-    };
-    nvChad = {
-      url = "github:NvChad/NvChad";
-      flake = false;
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -24,14 +20,11 @@
     in {
       homeConfigurations."gobmeboul" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-
+        modules = [
+	  ./home.nix 
+	  inputs.nixvim.homeManagerModules.nixvim
+	];
         extraSpecialArgs = { inherit inputs; };
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
       };
     };
 }

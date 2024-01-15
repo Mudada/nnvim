@@ -1,6 +1,7 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
+
   home.username = "gobmeboul";
   home.homeDirectory = "/home/gobmeboul";
 
@@ -11,7 +12,7 @@
     settings.experimental-features = ["nix-command" "flakes"];
   };
 
-  home.packages = [
+  home.packages = [ 
   ];
 
   home.file = {
@@ -26,37 +27,13 @@
     enable = true;
   };
 
-  nixpkgs = {
-    overlays = [
-      (final: prev: {
-        vimPlugins = prev.vimPlugins // {
-          nvChad = prev.vimUtils.buildVimPlugin {
-            name = "nvChad";
-            src = inputs.nvChad;
-          };
-        };
-       })
-    ];
-  };
-
-  programs.neovim = {
+  programs.git = {
     enable = true;
-
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-
-    plugins = with pkgs.vimPlugins; [
-      {
-        plugin = nvChad;
-      }
-    ];
-
-    extraPackages = with pkgs; [
-      ripgrep
-      libgcc
-      gnumake
-    ];
+    userName = "Mudada";
+    userEmail = "mael.nicolas77@gmail.com";
   };
 
+  programs.nixvim = {
+    enable = true;
+  };
 }
