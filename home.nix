@@ -36,6 +36,20 @@
   programs.nixvim = {
     enable = true;
 
-    colorschemes.gruvbox.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      flavour = "latte";
+      colorOverrides = {
+	all = {
+	  base = "#FDFFDF";
+	};
+      };
+    };
+
+    options = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+    };
   };
 }
