@@ -36,6 +36,12 @@
   programs.nixvim = {
     enable = true;
 
+    options = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+    };
+
     colorschemes.catppuccin = {
       enable = true;
       flavour = "latte";
@@ -46,10 +52,44 @@
       };
     };
 
-    options = {
-      number = true;
-      relativenumber = true;
-      shiftwidth = 2;
+    plugins.telescope.enable = true;
+
+    plugins.lsp = {
+      enable = true;
+      servers = {
+	lua-ls.enable = true;
+	nixd.enable = true;
+      };
     };
+
+    plugins.nvim-cmp = {
+      enable = true;
+      autoEnableSources = true;
+      sources = [
+	{name = "nvim_lsp";}
+	{name = "path";}
+	{name = "buffer";}
+      ];
+
+      mapping = {
+        "<CR>" = "cmp.mapping.confirm({ select = true })";
+        "<Tab>" = {
+          action = ''
+            function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                fallback()
+              end
+            end
+          '';
+          modes = [ "i" "s" ];
+        };
+      };
+    };
+
+    extraPlugins = with pkgs.vimPlugins; [
+      nvchad
+    ];
   };
 }
