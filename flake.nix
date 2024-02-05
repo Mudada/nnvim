@@ -15,9 +15,10 @@
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
-      system = "x86_64-linux";
+      system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
+      defaultPackage.${system} = home-manager.defaultPackage.${system};
       homeConfigurations."gobmeboul" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [

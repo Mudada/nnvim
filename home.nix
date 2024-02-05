@@ -3,13 +3,14 @@
 {
 
   home.username = "gobmeboul";
-  home.homeDirectory = "/home/gobmeboul";
+  home.homeDirectory = "/Users/gobmeboul";
 
   home.stateVersion = "23.11"; 
 
   nix = {
     package = pkgs.nix;
     settings.experimental-features = ["nix-command" "flakes"];
+    settings.extra-platforms = ["aarch64-darwin" "x86_64-darwin"];
   };
 
   home.packages = [ 
