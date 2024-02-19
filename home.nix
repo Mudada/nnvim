@@ -14,6 +14,7 @@
   };
 
   home.packages = [ 
+    pkgs.ripgrep
   ];
 
   home.file = {
@@ -37,6 +38,8 @@
   programs.nixvim = {
     enable = true;
 
+    globals.mapleader = " ";
+
     options = {
       number = true;
       relativenumber = true;
@@ -53,8 +56,6 @@
       };
     };
 
-    plugins.telescope.enable = true;
-
     plugins.lsp = {
       enable = true;
       servers = {
@@ -62,6 +63,28 @@
 	nixd.enable = true;
       };
     };
+
+    plugins.telescope = {
+      enable = true;
+    };
+    keymaps = [
+      {
+	key = "<leader>ff";
+	action = "<cmd>lua require('telescope.builtin').find_files()<cr>";
+      }
+      {
+        key = "<leader>fg";
+        action = "<cmd>lua require('telescope.builtin').live_grep()<cr>";
+      }
+      {
+        key = "<leader>fb";
+        action = "<cmd>lua require('telescope.builtin').buffers()<cr>";
+      }
+      {
+        key = "<leader>fh";
+        action = "<cmd>lua require('telescope.builtin').help_tags()<cr>";
+      }
+    ];
 
     plugins.nvim-cmp = {
       enable = true;
@@ -90,7 +113,7 @@
     };
 
     extraPlugins = with pkgs.vimPlugins; [
-      nvchad
+      
     ];
   };
 }
