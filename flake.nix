@@ -11,6 +11,12 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # neovim plugins
+    nv-haskell-tools = {
+      url = "github:mrcjkb/haskell-tools.nvim";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

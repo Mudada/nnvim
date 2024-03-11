@@ -179,6 +179,22 @@
         "type": "github"
       }
     },
+    "nv-haskell-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709582920,
+        "narHash": "sha256-mP48b46DEMCQ77ZI9dts3kHzQcUHOl9pdLMQcsmMVYE=",
+        "owner": "mrcjkb",
+        "repo": "haskell-tools.nvim",
+        "rev": "255c62afab1dfcb89c61e9001c90cd52516f34b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mrcjkb",
+        "repo": "haskell-tools.nvim",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -211,7 +227,8 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "nv-haskell-tools": "nv-haskell-tools"
       }
     },
     "systems": {

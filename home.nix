@@ -1,17 +1,19 @@
 { config, pkgs, inputs, ... }:
 
 {
-
   home.username = "gobmeboul";
   home.homeDirectory = "/Users/gobmeboul";
 
   home.stateVersion = "23.11"; 
 
-  nix = {
-    package = pkgs.nix;
-    settings.experimental-features = ["nix-command" "flakes"];
-    settings.extra-platforms = ["aarch64-darwin" "x86_64-darwin"];
-  };
+ # nix = {
+ #   package = pkgs.nix;
+ #   settings.experimental-features = ["nix-command" "flakes"];
+ #   settings.extra-platforms = ["aarch64-darwin" "x86_64-darwin"];
+ #   settings.extra-substituters = ["https://cache.iog.io"];
+ #   settings.extra-trusted-public-keys = ["hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="];
+ #   settings.allow-import-from-derivation = "true";
+ # };
 
   home.packages = [ 
     pkgs.ripgrep
@@ -35,6 +37,20 @@
     userEmail = "mael.nicolas77@gmail.com";
   };
 
+  # extra neovim plugins
+  nixpkgs = {
+    overlays = [
+      (final: prev: {
+	vimPlugins = prev.vimPlugins // {
+	  haskell-tools = prev.vimUtils.buildVimPlugin {
+	    name = "haskell-tools";
+	    src = inputs.nv-haskell-tools;
+	  };
+	};
+      })
+    ];
+  };
+
   programs.nixvim = {
     enable = true;
 
@@ -56,11 +72,20 @@
       };
     };
 
+    plugins.treesitter = { 
+      enable = true;
+    };
+
+    plugins.which-key = {
+      enable = true;
+    };
+
     plugins.lsp = {
       enable = true;
       servers = {
 	lua-ls.enable = true;
 	nixd.enable = true;
+	hls.enable = true;
       };
     };
 
@@ -68,6 +93,10 @@
       enable = true;
     };
     keymaps = [
+      {
+	key = "<leader>";
+	action = "<cmd>WhichKey<cr>";
+      }
       {
 	key = "<leader>ff";
 	action = "<cmd>lua require('telescope.builtin').find_files()<cr>";
@@ -113,7 +142,8 @@
     };
 
     extraPlugins = with pkgs.vimPlugins; [
-      
+      nvim-nu
+      haskell-tools
     ];
   };
 }
