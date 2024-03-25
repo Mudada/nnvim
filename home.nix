@@ -51,7 +51,11 @@
     ];
   };
 
-  programs.nixvim = {
+  programs.nixvim =
+  let
+    toLuaFile = file: "${builtins.readFile file}";
+  in
+  {
     enable = true;
 
     globals.mapleader = " ";
@@ -95,7 +99,7 @@
     keymaps = [
       {
 	key = "<leader>";
-	action = "<cmd>WhichKey<cr>";
+	action = "<cmd>WhichKey <leader><cr>";
       }
       {
 	key = "<leader>ff";
@@ -145,5 +149,7 @@
       nvim-nu
       haskell-tools
     ];
+
+    extraConfigLua = toLuaFile ./nvim/keybinds.lua;
   };
 }
