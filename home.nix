@@ -90,6 +90,11 @@
 	lua-ls.enable = true;
 	nixd.enable = true;
 	hls.enable = true;
+	rust-analyzer = {
+	  installCargo = false;
+	  installRustc = false;
+	  enable = true;
+	};
       };
     };
 
@@ -119,6 +124,9 @@
       }
     ];
 
+    plugins.luasnip.enable = true;
+    plugins.cmp_luasnip.enable = true;
+
     plugins.nvim-cmp = {
       enable = true;
       autoEnableSources = true;
@@ -127,6 +135,7 @@
 	{name = "path";}
 	{name = "buffer";}
       ];
+      snippet.expand = "luasnip";
 
       mapping = {
         "<CR>" = "cmp.mapping.confirm({ select = true })";
