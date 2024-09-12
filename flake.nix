@@ -25,7 +25,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       defaultPackage.${system} = home-manager.defaultPackage.${system};
-      homeConfigurations."gobmeboul" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."tangui" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
 	  ./home.nix 

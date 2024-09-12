@@ -1,8 +1,8 @@
 { config, pkgs, inputs, ... }:
 
 {
-  home.username = "gobmeboul";
-  home.homeDirectory = "/Users/gobmeboul";
+  home.username = "tangui";
+  home.homeDirectory = "/Users/tangui";
 
   home.stateVersion = "23.11"; 
 
@@ -25,16 +25,22 @@
   home.sessionVariables = {
   };
 
+  nixpkgs.config.allowUnfreePredicate = _: true;
+  
   programs.home-manager.enable = true;
 
   programs.nushell = {
     enable = true;
   };
 
+  programs.jq = {
+    enable = true;
+  };
+
   programs.git = {
     enable = true;
-    userName = "Mudada";
-    userEmail = "mael.nicolas77@gmail.com";
+    userName = "Tangui";
+    userEmail = "mael.nicolas@clever-cloud.com";
   };
 
   # extra neovim plugins
@@ -64,6 +70,7 @@
       number = true;
       relativenumber = true;
       shiftwidth = 2;
+      clipboard = "unnamed";
     };
 
     colorschemes.catppuccin = {
@@ -87,9 +94,12 @@
     plugins.lsp = {
       enable = true;
       servers = {
+	solargraph.enable = true;
 	lua-ls.enable = true;
 	nixd.enable = true;
 	hls.enable = true;
+	nushell.enable = true;
+	metals.enable = true;
 	rust-analyzer = {
 	  installCargo = false;
 	  installRustc = false;
@@ -155,7 +165,6 @@
     };
 
     extraPlugins = with pkgs.vimPlugins; [
-      nvim-nu
       haskell-tools
     ];
 
