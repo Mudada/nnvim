@@ -179,6 +179,22 @@
         "type": "github"
       }
     },
+    "nv-dark-notify": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1613010370,
+        "narHash": "sha256-i90NsosFcRd6V2lPjJIG+R0KXwBtWj8L1J0JCJakmvs=",
+        "owner": "cormacrelf",
+        "repo": "dark-notify",
+        "rev": "891adc07dd7b367b840f1e9875b075fd8af4dc52",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cormacrelf",
+        "repo": "dark-notify",
+        "type": "github"
+      }
+    },
     "nv-haskell-tools": {
       "flake": false,
       "locked": {
@@ -192,6 +208,22 @@
       "original": {
         "owner": "mrcjkb",
         "repo": "haskell-tools.nvim",
+        "type": "github"
+      }
+    },
+    "nvim-nu": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729443679,
+        "narHash": "sha256-8xlRV2e6IdhjK7EMdG6xG6nErPzZZzn63sRSBKnxJdU=",
+        "owner": "LhKipp",
+        "repo": "nvim-nu",
+        "rev": "daa2385a5620c5634230fc90416d16ff4bd4e82d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LhKipp",
+        "repo": "nvim-nu",
         "type": "github"
       }
     },
@@ -228,7 +260,9 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
-        "nv-haskell-tools": "nv-haskell-tools"
+        "nv-dark-notify": "nv-dark-notify",
+        "nv-haskell-tools": "nv-haskell-tools",
+        "nvim-nu": "nvim-nu"
       }
     },
     "systems": {

@@ -15,8 +15,8 @@
  #   settings.allow-import-from-derivation = "true";
  # };
 
-  home.packages = [ 
-    pkgs.ripgrep
+  home.packages = with pkgs; [ 
+    ripgrep
   ];
 
   home.file = {
@@ -30,6 +30,10 @@
   programs.home-manager.enable = true;
 
   programs.nushell = {
+    enable = true;
+  };
+
+  programs.tmux = {
     enable = true;
   };
 
@@ -52,6 +56,15 @@
 	    name = "haskell-tools";
 	    src = inputs.nv-haskell-tools;
 	  };
+	  dark-notify = prev.vimUtils.buildVimPlugin {
+	    name = "dark-notify";
+	    src = inputs.nv-dark-notify;
+	  };
+	 nvim-nu = prev.vimUtils.buildVimPlugin {
+	    name = "nvim-nu";
+	    src = inputs.nvim-nu;
+	  };
+
 	};
       })
     ];
@@ -76,8 +89,12 @@
     colorschemes.catppuccin = {
       enable = true;
       flavour = "latte";
+      background = {
+	light = "latte";
+	dark = "mocha";
+      };
       colorOverrides = {
-	all = {
+	latte = {
 	  base = "#FDFFDF";
 	};
       };
@@ -98,7 +115,10 @@
 	lua-ls.enable = true;
 	nixd.enable = true;
 	hls.enable = true;
-	nushell.enable = true;
+	nushell = {
+	  filetypes = ["nu"];
+	  enable = true;
+	};
 	metals.enable = true;
 	rust-analyzer = {
 	  installCargo = false;
@@ -111,6 +131,11 @@
     plugins.telescope = {
       enable = true;
     };
+
+    plugins.none-ls = {
+      enable = true;
+    };
+
     keymaps = [
       {
 	key = "<leader>";
@@ -166,6 +191,8 @@
 
     extraPlugins = with pkgs.vimPlugins; [
       haskell-tools
+      nvim-nu
+      dark-notify
     ];
 
     extraConfigLua = toLuaFile ./nvim/keybinds.lua;

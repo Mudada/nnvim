@@ -11,10 +11,17 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     # neovim plugins
     nv-haskell-tools = {
       url = "github:mrcjkb/haskell-tools.nvim";
+      flake = false;
+    };
+    nv-dark-notify = {
+      url = "github:cormacrelf/dark-notify";
+      flake = false;
+    };
+    nvim-nu = {
+      url = "github:LhKipp/nvim-nu";
       flake = false;
     };
   };
