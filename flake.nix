@@ -24,6 +24,10 @@
       url = "github:LhKipp/nvim-nu";
       flake = false;
     };
+    treesitter-nu-grammar = {
+      url = "github:nushell/tree-sitter-nu";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
