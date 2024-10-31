@@ -41,6 +41,10 @@ in
     enable = true;
   };
 
+  programs.bat = {
+    enable = true;
+  };
+
   programs.tmux = {
     enable = true;
   };
