@@ -17,8 +17,7 @@
       flake = false;
     };
     nv-dark-notify = {
-      url = "github:cormacrelf/dark-notify";
-      flake = false;
+      url = "github:Mudada/dark-notify";
     };
     nvim-nu = {
       url = "github:LhKipp/nvim-nu";
@@ -36,7 +35,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       defaultPackage.${system} = home-manager.defaultPackage.${system};
-      homeConfigurations."tangui" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."gobmeboul" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
 	  ./home.nix 

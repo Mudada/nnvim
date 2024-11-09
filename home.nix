@@ -1,5 +1,6 @@
 { config, pkgs, inputs, ... }:
 let 
+   system = "aarch64-darwin";
    treesitter-nu-grammar = pkgs.tree-sitter.buildGrammar {
      language = "nu";
      src = inputs.treesitter-nu-grammar;
@@ -8,22 +9,14 @@ let
 in 
 {
 
-  home.username = "tangui";
-  home.homeDirectory = "/Users/tangui";
+  home.username = "gobmeboul";
+  home.homeDirectory = "/Users/gobmeboul";
 
   home.stateVersion = "23.11"; 
 
-# nix = {
-#   package = pkgs.nix;
-#   settings.experimental-features = ["nix-command" "flakes"];
-#   settings.extra-platforms = ["aarch64-darwin" "x86_64-darwin"];
-#   settings.extra-substituters = ["https://cache.iog.io"];
-#   settings.extra-trusted-public-keys = ["hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="];
-#   settings.allow-import-from-derivation = "true";
-# };
-
-  home.packages = with pkgs; [ 
-    ripgrep
+  home.packages = [ 
+    pkgs.ripgrep
+    inputs.nv-dark-notify.packages.${system}.default
   ];
 
   home.file = {
@@ -64,21 +57,20 @@ in
     overlays = [
       (final: prev: {
        vimPlugins = prev.vimPlugins // {
-       haskell-tools = prev.vimUtils.buildVimPlugin {
-       name = "haskell-tools";
-       src = inputs.nv-haskell-tools;
+	 haskell-tools = prev.vimUtils.buildVimPlugin {
+	   name = "haskell-tools";
+	   src = inputs.nv-haskell-tools;
+	 };
+	 dark-notify = prev.vimUtils.buildVimPlugin {
+	   name = "dark-notify";
+	   src = inputs.nv-dark-notify;
+	 };
+	 nvim-nu = prev.vimUtils.buildVimPlugin {
+	   name = "nvim-nu";
+	   src = inputs.nvim-nu;
+	 };
        };
-       dark-notify = prev.vimUtils.buildVimPlugin {
-       name = "dark-notify";
-       src = inputs.nv-dark-notify;
-       };
-       nvim-nu = prev.vimUtils.buildVimPlugin {
-       name = "nvim-nu";
-       src = inputs.nvim-nu;
-       };
-
-       };
-       })
+      })
     ];
   };
 
