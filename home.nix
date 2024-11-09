@@ -1,198 +1,208 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let 
-system = "aarch64-darwin";
-treesitter-nu-grammar = pkgs.tree-sitter.buildGrammar {
-  language = "nu";
-  src = inputs.treesitter-nu-grammar;
-  version = "";
-};
+  system = "aarch64-darwin";
+  treesitter-nu-grammar = pkgs.tree-sitter.buildGrammar {
+    language = "nu";
+    src = inputs.treesitter-nu-grammar;
+    version = "";
+  };
 in 
 {
-
-  home.username = "gobmeboul";
-  home.homeDirectory = "/Users/gobmeboul";
-
-  home.stateVersion = "23.11"; 
-
-  home.packages = [ 
-    pkgs.ripgrep
-    inputs.nv-dark-notify.packages.${system}.default
-  ];
-
-  home.file = {
+  options = {
+    username = lib.mkOption {
+      type = lib.types.enum ["gobmeboul" "tangui"];
+    };
   };
-
-  home.sessionVariables = {
-  };
+  config = {
 
 
-  nixpkgs.config.allowUnfreePredicate = _: true;
+    home.username = toString config.username;
+    home.homeDirectory = "/Users/${config.username}";
 
-  programs.home-manager.enable = true;
+    home.stateVersion = "23.11"; 
 
-  programs.nushell = {
-    enable = true;
-  };
+    home.packages = [ 
+      pkgs.ripgrep
+      inputs.nv-dark-notify.packages.${system}.default
+    ];
 
-  programs.bat = {
-    enable = true;
-  };
+    home.file = {
+    };
 
-  programs.tmux = {
-    enable = true;
-  };
+    home.sessionVariables = {
+    };
 
-  programs.jq = {
-    enable = true;
-  };
 
-  programs.git = {
-    enable = true;
-    userName = "Tangui";
-    userEmail = "mael.nicolas@clever-cloud.com";
-  };
+    nixpkgs.config.allowUnfreePredicate = _: true;
+
+    programs.home-manager.enable = true;
+
+    programs.nushell = {
+      enable = true;
+    };
+
+    programs.bat = {
+      enable = true;
+    };
+
+    programs.tmux = {
+      enable = true;
+    };
+
+    programs.jq = {
+      enable = true;
+    };
+
+    programs.git = {
+      enable = true;
+      userName = "Tangui";
+      userEmail = "mael.nicolas@clever-cloud.com";
+    };
 
 # extra neovim plugins
-  nixpkgs = {
-    overlays = [
-      (final: prev: {
-       vimPlugins = prev.vimPlugins // {
-       haskell-tools = prev.vimUtils.buildVimPlugin {
-       name = "haskell-tools";
-       src = inputs.nv-haskell-tools;
-       };
-       dark-notify = prev.vimUtils.buildVimPlugin {
-       name = "dark-notify";
-       src = inputs.nv-dark-notify;
-       };
-       nvim-nu = prev.vimUtils.buildVimPlugin {
-       name = "nvim-nu";
-       src = inputs.nvim-nu;
-       };
-       };
-       })
-    ];
-  };
+    nixpkgs = {
+      overlays = [
+	(final: prev: {
+	 vimPlugins = prev.vimPlugins // {
+	 haskell-tools = prev.vimUtils.buildVimPlugin {
+	 name = "haskell-tools";
+	 src = inputs.nv-haskell-tools;
+	 };
+	 dark-notify = prev.vimUtils.buildVimPlugin {
+	 name = "dark-notify";
+	 src = inputs.nv-dark-notify;
+	 };
+	 nvim-nu = prev.vimUtils.buildVimPlugin {
+	 name = "nvim-nu";
+	 src = inputs.nvim-nu;
+	 };
+	 };
+	 })
+      ];
+    };
 
-  programs.nixvim =
-  let
-    toLuaFile = file: "${builtins.readFile file}";
-  in
-  {
-    config = { 
-      enable = true;
-
-      globals.mapleader = " ";
-
-      opts = {
-	number = true;
-	relativenumber = true;
-	shiftwidth = 2;
-	clipboard = "unnamed";
-      };
-      
-      colorschemes.catppuccin = {
+    programs.nixvim =
+      let
+      toLuaFile = file: "${builtins.readFile file}";
+    in
+    {
+      config = { 
 	enable = true;
-	settings = {
-	  background = {
-	    light = "latte";
-	    dark = "mocha";
-	  };
-	  flavour = "mocha";
-	  color_overrides = {
-	    latte = {
-	      base = "#FDFFDF";
+
+	globals.mapleader = " ";
+
+	opts = {
+	  number = true;
+	  relativenumber = true;
+	  shiftwidth = 2;
+	  clipboard = "unnamed";
+	};
+
+	colorschemes.catppuccin = {
+	  enable = true;
+	  settings = {
+	    background = {
+	      light = "latte";
+	      dark = "mocha";
+	    };
+	    flavour = "mocha";
+	    color_overrides = {
+	      latte = {
+		base = "#FDFFDF";
+	      };
 	    };
 	  };
 	};
-      };
 
-      plugins.treesitter = { 
-	enable = true;
-	grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [
-	  treesitter-nu-grammar
-	];
-      };
+	plugins.treesitter = { 
+	  enable = true;
+	  grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [
+	    treesitter-nu-grammar
+	  ];
+	};
 
-      plugins.which-key = {
-	enable = true;
-      };
+	plugins.which-key = {
+	  enable = true;
+	};
 
-      plugins.lsp = {
-	enable = true;
-	servers = {
-	  solargraph.enable = true;
-	  lua_ls.enable = true;
-	  nixd.enable = true;
-	  hls = {
-	    enable = true;
-	    installGhc = false;
-	  };
-	  nushell = {
-	    filetypes = ["nu"];
-	    enable = true;
-	  };
-	  metals.enable = true;
-	  rust_analyzer = {
-	    installCargo = false;
-	    installRustc = false;
-	    enable = true;
+	plugins.lsp = {
+	  enable = true;
+	  servers = {
+	    solargraph.enable = true;
+	    lua_ls.enable = true;
+	    nixd.enable = true;
+	    hls = {
+	      enable = true;
+	      installGhc = false;
+	    };
+	    nushell = {
+	      filetypes = ["nu"];
+	      enable = true;
+	    };
+	    metals.enable = true;
+	    rust_analyzer = {
+	      installCargo = false;
+	      installRustc = false;
+	      enable = true;
+	    };
 	  };
 	};
+
+	plugins.telescope = {
+	  enable = true;
+	};
+
+	plugins.mini = { 
+	  enable = true; 
+	  mockDevIcons = true;
+	  modules.icons.enabled = true;
+	};
+
+	plugins.none-ls = {
+	  enable = true;
+	};
+
+	keymaps = [
+	{
+	  key = "<leader>";
+	  action = "<cmd>WhichKey <leader><cr>";
+	}
+	{
+	  key = "<leader>ff";
+	  action = "<cmd>lua require('telescope.builtin').find_files()<cr>";
+	}
+	{
+	  key = "<leader>fg";
+	  action = "<cmd>lua require('telescope.builtin').live_grep()<cr>";
+	}
+	{
+	  key = "<leader>fb";
+	  action = "<cmd>lua require('telescope.builtin').buffers()<cr>";
+	}
+	{
+	  key = "<leader>fh";
+	  action = "<cmd>lua require('telescope.builtin').help_tags()<cr>";
+	}
+	];
+
+	plugins.luasnip.enable = true;
+	plugins.cmp_luasnip.enable = true;
+
+
+	plugins.cmp = {
+	  enable = true;
+	  autoEnableSources = true;
+	};
+
+	extraPlugins = with pkgs.vimPlugins; [
+	  nvim-nu
+	    dark-notify
+	    treesitter-nu-grammar
+	    haskell-tools
+	];
+
+	extraConfigLua = toLuaFile ./nvim/keybinds.lua;
       };
-
-      plugins.telescope = {
-	enable = true;
-      };
-
-      plugins.web-devicons = { 
-	enable = true; 
-      };
-
-      plugins.none-ls = {
-	enable = true;
-      };
-
-      keymaps = [
-      {
-	key = "<leader>";
-	action = "<cmd>WhichKey <leader><cr>";
-      }
-      {
-	key = "<leader>ff";
-	action = "<cmd>lua require('telescope.builtin').find_files()<cr>";
-      }
-      {
-	key = "<leader>fg";
-	action = "<cmd>lua require('telescope.builtin').live_grep()<cr>";
-      }
-      {
-	key = "<leader>fb";
-	action = "<cmd>lua require('telescope.builtin').buffers()<cr>";
-      }
-      {
-	key = "<leader>fh";
-	action = "<cmd>lua require('telescope.builtin').help_tags()<cr>";
-      }
-      ];
-
-      plugins.luasnip.enable = true;
-      plugins.cmp_luasnip.enable = true;
-
-
-      plugins.cmp = {
-	enable = true;
-	autoEnableSources = true;
-      };
-
-      extraPlugins = with pkgs.vimPlugins; [
-	nvim-nu
-	dark-notify
-	treesitter-nu-grammar
-	haskell-tools
-      ];
-
-      extraConfigLua = toLuaFile ./nvim/keybinds.lua;
     };
   };
 }

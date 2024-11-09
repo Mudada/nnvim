@@ -33,12 +33,13 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
+      username = "gobmeboul";
     in {
       defaultPackage.${system} = home-manager.defaultPackage.${system};
-      homeConfigurations."gobmeboul" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-	  ./home.nix 
+	  ./home.nix { inherit username; }
 	  inputs.nixvim.homeManagerModules.nixvim
 	];
         extraSpecialArgs = { inherit inputs; };
