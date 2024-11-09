@@ -1,11 +1,11 @@
 { config, pkgs, inputs, ... }:
 let 
-   system = "aarch64-darwin";
-   treesitter-nu-grammar = pkgs.tree-sitter.buildGrammar {
-     language = "nu";
-     src = inputs.treesitter-nu-grammar;
-     version = "";
-   };
+system = "aarch64-darwin";
+treesitter-nu-grammar = pkgs.tree-sitter.buildGrammar {
+  language = "nu";
+  src = inputs.treesitter-nu-grammar;
+  version = "";
+};
 in 
 {
 
@@ -57,152 +57,142 @@ in
     overlays = [
       (final: prev: {
        vimPlugins = prev.vimPlugins // {
-	 haskell-tools = prev.vimUtils.buildVimPlugin {
-	   name = "haskell-tools";
-	   src = inputs.nv-haskell-tools;
-	 };
-	 dark-notify = prev.vimUtils.buildVimPlugin {
-	   name = "dark-notify";
-	   src = inputs.nv-dark-notify;
-	 };
-	 nvim-nu = prev.vimUtils.buildVimPlugin {
-	   name = "nvim-nu";
-	   src = inputs.nvim-nu;
-	 };
+       haskell-tools = prev.vimUtils.buildVimPlugin {
+       name = "haskell-tools";
+       src = inputs.nv-haskell-tools;
        };
-      })
+       dark-notify = prev.vimUtils.buildVimPlugin {
+       name = "dark-notify";
+       src = inputs.nv-dark-notify;
+       };
+       nvim-nu = prev.vimUtils.buildVimPlugin {
+       name = "nvim-nu";
+       src = inputs.nvim-nu;
+       };
+       };
+       })
     ];
   };
 
   programs.nixvim =
-    let
+  let
     toLuaFile = file: "${builtins.readFile file}";
   in
-  { 
-    enable = true;
-
-    globals.mapleader = " ";
-
-    options = {
-      number = true;
-      relativenumber = true;
-      shiftwidth = 2;
-      clipboard = "unnamed";
-    };
-
-    colorschemes.catppuccin = {
+  {
+    config = { 
       enable = true;
-      flavour = "mocha";
-      background = {
-	light = "latte";
-	dark = "mocha";
+
+      globals.mapleader = " ";
+
+      opts = {
+	number = true;
+	relativenumber = true;
+	shiftwidth = 2;
+	clipboard = "unnamed";
       };
-      colorOverrides = {
-	latte = {
-	  base = "#FDFFDF";
+      
+      colorschemes.catppuccin = {
+	enable = true;
+	settings = {
+	  background = {
+	    light = "latte";
+	    dark = "mocha";
+	  };
+	  flavour = "mocha";
+	  color_overrides = {
+	    latte = {
+	      base = "#FDFFDF";
+	    };
+	  };
 	};
       };
-    };
 
-    plugins.treesitter = { 
-      enable = true;
-      grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [
-	treesitter-nu-grammar
+      plugins.treesitter = { 
+	enable = true;
+	grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [
+	  treesitter-nu-grammar
+	];
+      };
+
+      plugins.which-key = {
+	enable = true;
+      };
+
+      plugins.lsp = {
+	enable = true;
+	servers = {
+	  solargraph.enable = true;
+	  lua_ls.enable = true;
+	  nixd.enable = true;
+	  hls = {
+	    enable = true;
+	    installGhc = false;
+	  };
+	  nushell = {
+	    filetypes = ["nu"];
+	    enable = true;
+	  };
+	  metals.enable = true;
+	  rust_analyzer = {
+	    installCargo = false;
+	    installRustc = false;
+	    enable = true;
+	  };
+	};
+      };
+
+      plugins.telescope = {
+	enable = true;
+      };
+
+      plugins.web-devicons = { 
+	enable = true; 
+      };
+
+      plugins.none-ls = {
+	enable = true;
+      };
+
+      keymaps = [
+      {
+	key = "<leader>";
+	action = "<cmd>WhichKey <leader><cr>";
+      }
+      {
+	key = "<leader>ff";
+	action = "<cmd>lua require('telescope.builtin').find_files()<cr>";
+      }
+      {
+	key = "<leader>fg";
+	action = "<cmd>lua require('telescope.builtin').live_grep()<cr>";
+      }
+      {
+	key = "<leader>fb";
+	action = "<cmd>lua require('telescope.builtin').buffers()<cr>";
+      }
+      {
+	key = "<leader>fh";
+	action = "<cmd>lua require('telescope.builtin').help_tags()<cr>";
+      }
       ];
-    };
 
-    plugins.which-key = {
-      enable = true;
-    };
+      plugins.luasnip.enable = true;
+      plugins.cmp_luasnip.enable = true;
 
-    plugins.lsp = {
-      enable = true;
-      servers = {
-	solargraph.enable = true;
-	lua-ls.enable = true;
-	nixd.enable = true;
-	hls.enable = true;
-	nushell = {
-	  filetypes = ["nu"];
-	  enable = true;
-	};
-	metals.enable = true;
-	rust-analyzer = {
-	  installCargo = false;
-	  installRustc = false;
-	  enable = true;
-	};
+
+      plugins.cmp = {
+	enable = true;
+	autoEnableSources = true;
       };
-    };
 
-    plugins.telescope = {
-      enable = true;
-    };
-
-    plugins.none-ls = {
-      enable = true;
-    };
-
-    keymaps = [
-    {
-      key = "<leader>";
-      action = "<cmd>WhichKey <leader><cr>";
-    }
-    {
-      key = "<leader>ff";
-      action = "<cmd>lua require('telescope.builtin').find_files()<cr>";
-    }
-    {
-      key = "<leader>fg";
-      action = "<cmd>lua require('telescope.builtin').live_grep()<cr>";
-    }
-    {
-      key = "<leader>fb";
-      action = "<cmd>lua require('telescope.builtin').buffers()<cr>";
-    }
-    {
-      key = "<leader>fh";
-      action = "<cmd>lua require('telescope.builtin').help_tags()<cr>";
-    }
-    ];
-
-    plugins.luasnip.enable = true;
-    plugins.cmp_luasnip.enable = true;
-
-    plugins.nvim-cmp = {
-      enable = true;
-      autoEnableSources = true;
-      sources = [
-      {name = "nvim_lsp";}
-      {name = "path";}
-      {name = "buffer";}
-      ];
-      snippet.expand = "luasnip";
-
-      mapping = {
-	"<CR>" = "cmp.mapping.confirm({ select = true })";
-	"<Tab>" = {
-	  action = ''
-	    function(fallback)
-	    if cmp.visible() then
-	      cmp.select_next_item()
-	    else
-	      fallback()
-		end
-		end
-		'';
-	  modes = [ "i" "s" ];
-	};
-      };
-    };
-
-    extraPlugins = with pkgs.vimPlugins; [
-	haskell-tools
+      extraPlugins = with pkgs.vimPlugins; [
 	nvim-nu
 	dark-notify
 	treesitter-nu-grammar
-    ];
+	haskell-tools
+      ];
 
-    extraConfigLua = toLuaFile ./nvim/keybinds.lua;
+      extraConfigLua = toLuaFile ./nvim/keybinds.lua;
+    };
   };
 }
