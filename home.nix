@@ -6,6 +6,7 @@ let
     src = inputs.treesitter-nu-grammar;
     version = "";
   };
+  toLuaFile = file: "${builtins.readFile file}";
 in 
 {
   options = {
@@ -14,7 +15,6 @@ in
     };
   };
   config = {
-
 
     home.username = toString config.username;
     home.homeDirectory = "/Users/${config.username}";
@@ -36,6 +36,15 @@ in
     nixpkgs.config.allowUnfreePredicate = _: true;
 
     programs.home-manager.enable = true;
+
+    programs.wezterm = {
+      enable = true;
+      extraConfig = ''
+	${ toLuaFile ./wezterm/config.lua }
+	conf.default_prog = {'${config.home.homeDirectory}/.nix-profile/bin/nu'}
+	return(conf)
+      '';
+    };
 
     programs.nushell = {
       enable = true;
@@ -82,9 +91,6 @@ in
     };
 
     programs.nixvim =
-      let
-      toLuaFile = file: "${builtins.readFile file}";
-    in
     {
       config = { 
 	enable = true;
