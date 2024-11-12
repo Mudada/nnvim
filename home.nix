@@ -202,9 +202,9 @@ in
 
 	extraPlugins = with pkgs.vimPlugins; [
 	  nvim-nu
-	    dark-notify
-	    treesitter-nu-grammar
-	    haskell-tools
+	  dark-notify
+	  haskell-tools
+	  treesitter-nu-grammar
 	];
 
 	extraConfigLua = toLuaFile ./nvim/keybinds.lua;
