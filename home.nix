@@ -24,6 +24,7 @@ in
     home.packages = [ 
       pkgs.ripgrep
       inputs.nv-dark-notify.packages.${system}.default
+      pkgs.fd
     ];
 
     home.file = {
@@ -40,6 +41,7 @@ in
     programs.wezterm = {
       enable = true;
       extraConfig = ''
+	${ toLuaFile ./wezterm/sessionizer.lua }
 	${ toLuaFile ./wezterm/config.lua }
 	conf.default_prog = {'${config.home.homeDirectory}/.nix-profile/bin/nu'}
 	return(conf)
@@ -122,6 +124,10 @@ in
 
 	plugins.treesitter = { 
 	  enable = true;
+	  settings = {
+	    highlight.enable = true;
+	    indent.enable = true;
+	  };
 	  grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [
 	    treesitter-nu-grammar
 	  ];
