@@ -56,6 +56,20 @@ in
 
     programs.starship = {
       enable = true;
+      enableNushellIntegration = true;
+      settings = {
+	git_branch = {
+	  symbol = "|";
+	  format = "[$symbol$branch(:$remote_branch)]($style) ";
+	};
+	nix_shell = {
+	  symbol = "*";
+	  format = "[$symbol$state\\($name\\)]($style) ";
+	};
+	format = "$username$hostname$localip$kubernetes$directory$git_branch$git_commit$git_state$git_metrics$git_status$nix_shell
+$character";
+	add_newline = true;
+      };
     };
 
     programs.bat = {

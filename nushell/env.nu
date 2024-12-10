@@ -109,8 +109,3 @@ $env.PATH = ($env.PATH ++ [
 /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
 /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
 ])
-
-
-# STARSHIP
-mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
