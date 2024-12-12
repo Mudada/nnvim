@@ -15,7 +15,7 @@ local function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
     return 'Catppuccin Mocha'
   else
-    return 'Catppuccin Latte'
+    return 'dawnfox'
   end
 end
 
@@ -28,7 +28,7 @@ conf.color_schemes = {
 conf.color_scheme = scheme_for_appearance(get_appearance())
 
 -- Common config
-conf.font_size = 16
+conf.font_size = 14
 conf.window_background_opacity = 1
 conf.hide_tab_bar_if_only_one_tab = true
 conf.integrated_title_buttons = { 'Hide', 'Maximize', 'Close' }
