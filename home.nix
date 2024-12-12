@@ -66,8 +66,21 @@ in
 	  symbol = "*";
 	  format = "[$symbol$state\\($name\\)]($style) ";
 	};
-	format = "$username$hostname$localip$kubernetes$directory$git_branch$git_commit$git_state$git_metrics$git_status$nix_shell
-$character";
+	format = lib.strings.concatStrings [
+	  "$username"
+	  "$hostname"
+	  "$localip"
+	  "$directory"
+	  "$git_branch"
+	  "$git_commit"
+	  "$git_state"
+	  "$git_metrics"
+	  "$git_status"
+	  "$nix_shell"
+	  "$direnv"
+	  "$line_break"
+	  "$character"
+	];
 	add_newline = true;
       };
     };
