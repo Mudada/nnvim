@@ -9,6 +9,7 @@
 
 source ~/script/load-env.nu
 source ~/script/clever-cloud.nu
+source ~/.config/home-manager/nushell/prelude.nu
 
 let dark_theme = {
     # color for nushell primitives

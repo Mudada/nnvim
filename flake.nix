@@ -33,7 +33,7 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-      username = "gobmeboul";
+      username = "tangui";
     in {
       defaultPackage.${system} = home-manager.defaultPackage.${system};
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
