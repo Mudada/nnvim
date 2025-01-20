@@ -25,6 +25,7 @@ in
       pkgs.ripgrep
       inputs.nv-dark-notify.packages.${system}.default
       pkgs.fd
+      pkgs.pueue
     ];
 
     home.file = {

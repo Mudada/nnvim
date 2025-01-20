@@ -1,4 +1,4 @@
-def lists-to-record [header: list]: list -> record {
+export def lists-to-record [header: list]: list -> record {
   let values = $in
 
   $header | enumerate | par-each { |v|
@@ -6,7 +6,7 @@ def lists-to-record [header: list]: list -> record {
   } | reduce {|it, acc| $acc | merge $it }
 }
 
-def behead []: list<list> -> table {
+export def behead []: list<list> -> table {
   let header = $in | get 0
   let body = $in | skip
 
@@ -15,17 +15,21 @@ def behead []: list<list> -> table {
   } 
 }
 
-let test = [[a b c] [1 2 3] [4 5 6]]
-let testResult = [[a b c]; [1 2 3] [4 5 6]]
+def test-prelude []: nothing -> nothing {
 
-let smallHead = [[a b] [1 2 3] [4 5 6]]
-let smallHeadResult = [[a b]; [1 2] [4 5]]
+  let test = [[a b c] [1 2 3] [4 5 6]]
+  let testResult = [[a b c]; [1 2 3] [4 5 6]]
 
-let bigHead = [[a b c d] [1 2 3] [4 5 6]]
-let bigHeadResult = [[a b c d]; [1 2 3 null] [4 5 6 null]]
+  let smallHead = [[a b] [1 2 3] [4 5 6]]
+  let smallHeadResult = [[a b]; [1 2] [4 5]]
 
-use std assert
+  let bigHead = [[a b c d] [1 2 3] [4 5 6]]
+  let bigHeadResult = [[a b c d]; [1 2 3 null] [4 5 6 null]]
 
-assert (($test | behead) == $testResult)
-assert (($smallHead | behead) == $smallHeadResult)
-assert (($bigHead | behead) == $bigHeadResult)
+  use std assert
+
+  assert (($test | behead) == $testResult)
+  assert (($smallHead | behead) == $smallHeadResult)
+  assert (($bigHead | behead) == $bigHeadResult)
+}
+

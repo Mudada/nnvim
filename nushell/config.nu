@@ -9,7 +9,6 @@
 
 source ~/script/load-env.nu
 source ~/script/clever-cloud.nu
-source ~/.config/home-manager/nushell/prelude.nu
 
 let dark_theme = {
     # color for nushell primitives
@@ -239,7 +238,7 @@ $env.config = {
         vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
 
-    color_config: (if (dark-notify -e) == "light" { $light_theme } else { $dark_theme } )
+    color_config: (if (dark-notify -e) == "light" { $dark_theme } else { $dark_theme } )
     footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
