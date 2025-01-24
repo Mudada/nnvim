@@ -10,6 +10,16 @@
 source ~/script/load-env.nu
 source ~/script/clever-cloud.nu
 
+alias "edit config" = nvim ~/.config/home-manager/
+alias "go config" = cd ~/.config/home-manager
+
+def "nu-nvim" [path: path] = {
+  let dirname = $path | path dirname
+  cd $dirname;
+  nvim $path;
+}
+alias nv = nu-nvim
+
 let dark_theme = {
     # color for nushell primitives
     separator: white
@@ -299,7 +309,12 @@ $env.config = {
         pre_prompt: [{ null }] # run before the prompt is shown
         pre_execution: [{ null }] # run before the repl input is run
         env_change: {
-            PWD: [{|before, after| null }] # run if the PWD environment is different since the last repl input
+            PWD: [{ |before, after|
+	      if (which direnv | is-empty) {
+		return
+	      }
+	      direnv export json | from json | default {} | load-env
+	    }] # run if the PWD environment is different since the last repl input
         }
         display_output: "if (term size).columns >= 100 { table -e } else { table }" # run to display the output of a pipeline
         command_not_found: { null } # return an error message when a command is not found

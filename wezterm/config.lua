@@ -105,14 +105,13 @@ conf.keys = {
 	resize_pane("l", "Right"),
 
 	-- other stuff
-	{ key = "f", mods = "CTRL", action = sessionizer.sessionize() },
 	{ key = "-", mods = "CTRL", action = wezterm.action.DecreaseFontSize },
 	{ key = "=", mods = "CTRL", action = wezterm.action.IncreaseFontSize },
 	{ key = "0", mods = "CTRL", action = wezterm.action.ResetFontSize },
 	{ key = "C", mods = "CTRL", action = wezterm.action.CopyTo("Clipboard") },
 	{ key = "V", mods = "CTRL", action = wezterm.action.PasteFrom("Clipboard") },
-	{ key = "q", mods = "CTRL", action = wezterm.action.QuitApplication },
-	{ key = "L", mods = "CTRL", action = wezterm.action.ShowDebugOverlay },
+	{ key = "f", mods = "ALT", action = sessionizer.sessionize() },
+	{ key = "L", mods = "ALT", action = wezterm.action.ShowDebugOverlay },
 	{ key = "p", mods = "ALT", action = wezterm.action.ActivateCommandPalette },
 	{ key = "w", mods = "ALT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 	{ key = "U", mods = "ALT", action = wezterm.action.ScrollByPage(-1) },

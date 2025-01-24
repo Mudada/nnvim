@@ -6,7 +6,7 @@ export def lists-to-record [header: list]: list -> record {
   } | reduce {|it, acc| $acc | merge $it }
 }
 
-export def behead []: list<list> -> table {
+export def behead []: list<list<any>> -> table {
   let header = $in | get 0
   let body = $in | skip
 
