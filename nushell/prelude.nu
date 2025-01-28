@@ -6,8 +6,8 @@ export def behead []: list<list<any>> -> table {
 }
 
 export def "~> list" []: [
-string -> list<list<string>>
-binary -> list<list<string>>
+  string -> list<list<string>>
+  binary -> list<list<string>>
 ] {
    $in | lines | par-each {
     $in 
@@ -16,9 +16,6 @@ binary -> list<list<string>>
     | filter {|x| ($x | is-not-empty) and ($x != " ") }
   } | filter { $in | is-not-empty }
 }
-# Was required before so keeping this here just in case
-# filter {|x| ($x | is-not-empty) and ($x != " ") } }
-
 export def "~> table" [header: list<string>]: any -> table {
   let indexedHeader = $header | enumerate
   $in | par-each { |row|
@@ -27,6 +24,11 @@ export def "~> table" [header: list<string>]: any -> table {
     }
  }
 }
+
+
+
+
+# = = = = = = TEST = = = = = = #
 
 def "test prelude" []: nothing -> nothing {
 
