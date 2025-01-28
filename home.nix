@@ -191,7 +191,9 @@ in
 	      filetypes = ["nu"];
 	      enable = true;
 	    };
-	    metals.enable = true;
+	    metals = {
+	      enable = true;
+	    };
 	    rust_analyzer = {
 	      installCargo = false;
 	      installRustc = false;

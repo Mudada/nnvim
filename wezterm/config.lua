@@ -20,10 +20,10 @@ local function scheme_for_appearance(appearance)
 end
 
 conf.color_schemes = {
-  ["Catppuccin Latte"] = {
-    background = "#FDFFDF",
-    foreground = "black"
-  }
+  --  ["rose-pine-dawn"] = {
+  --    background = "#FDFFDF",
+  --    foreground = "black"
+  --  },
 }
 conf.color_scheme = scheme_for_appearance(get_appearance())
 
