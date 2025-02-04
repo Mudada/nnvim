@@ -19,11 +19,10 @@ local function scheme_for_appearance(appearance)
   end
 end
 
+local rosePineDawn = wezterm.color.get_builtin_schemes()['rose-pine-dawn']
+rosePineDawn.selection_bg = "#56949f"
 conf.color_schemes = {
-  --  ["rose-pine-dawn"] = {
-  --    background = "#FDFFDF",
-  --    foreground = "black"
-  --  },
+  ['rose-pine-dawn'] = rosePineDawn
 }
 conf.color_scheme = scheme_for_appearance(get_appearance())
 
@@ -33,7 +32,11 @@ conf.window_background_opacity = 1
 conf.hide_tab_bar_if_only_one_tab = true
 conf.integrated_title_buttons = { 'Hide', 'Maximize', 'Close' }
 conf.front_end = "WebGpu"
-conf.font = wezterm.font('MonacoB2', { weight = 'Bold' })
+conf.font = wezterm.font_with_fallback {
+  { family = 'MonacoB2', weight = 'Bold' },
+  { family = 'Nanum Gothic', weight = 'DemiBold', scale = 1.2 }
+  -- { family = "카페24동동OTF", scale = 1.2 }
+}
 conf.adjust_window_size_when_changing_font_size = false
 conf.bypass_mouse_reporting_modifiers = "SHIFT"
 conf.audible_bell = "Disabled"
