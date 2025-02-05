@@ -16,6 +16,7 @@ export def "~> list" []: [
     | filter {|x| ($x | is-not-empty) and ($x != " ") }
   } | filter { $in | is-not-empty }
 }
+
 export def "~> table" [header: list<string>]: any -> table {
   let indexedHeader = $header | enumerate
   $in | par-each { |row|
@@ -24,8 +25,6 @@ export def "~> table" [header: list<string>]: any -> table {
     }
  }
 }
-
-
 
 
 # = = = = = = TEST = = = = = = #
