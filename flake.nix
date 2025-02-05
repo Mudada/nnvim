@@ -33,7 +33,7 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-      username = "gobmeboul";
+      username = if (builtins.pathExists ./username.nix) then (import ./username.nix) else "You need to declare a username.nix file with your username.";
     in {
       defaultPackage.${system} = home-manager.defaultPackage.${system};
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
