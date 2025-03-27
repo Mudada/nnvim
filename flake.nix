@@ -12,28 +12,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # neovim plugins
-    nv-haskell-tools = {
-      url = "github:mrcjkb/haskell-tools.nvim";
-      flake = false;
-    };
     nv-dark-notify = {
       url = "github:Mudada/dark-notify";
-    };
-    nvim-nu = {
-      url = "github:LhKipp/nvim-nu";
-      flake = false;
-    };
-    nv-nvim-metals = {
-      url = "github:scalameta/nvim-metals";
-      flake = false;
     };
     treesitter-nu-grammar = {
       url = "github:nushell/tree-sitter-nu";
       flake = false;
-    };
-    nix-metals = {
-      url = "github:ghostbuster91/nix-metals/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -41,9 +25,9 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-      username = if (builtins.pathExists ./username.nix) then (import ./username.nix) else "You need to declare a username.nix file with your username.";
+      username = "tangui";
     in {
-      defaultPackage.${system} = home-manager.defaultPackage.${system};
+      # defaultPackage.${system} = home-manager.defaultPackage.${system};
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
