@@ -15,10 +15,6 @@
     nv-dark-notify = {
       url = "github:Mudada/dark-notify";
     };
-    treesitter-nu-grammar = {
-      url = "github:nushell/tree-sitter-nu";
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

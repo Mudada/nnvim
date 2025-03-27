@@ -1,11 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let 
   system = "aarch64-darwin";
-  treesitter-nu-grammar = pkgs.tree-sitter.buildGrammar {
-    language = "nu";
-    src = inputs.treesitter-nu-grammar;
-    version = "";
-  };
   toLuaFile = file: "${builtins.readFile file}";
   nix-metals-path = "${pkgs.metals}/bin/metals";
 in 
@@ -180,9 +175,6 @@ in
 	      highlight.enable = true;
 	      indent.enable = true;
 	    };
-	    grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [
-	      treesitter-nu-grammar
-	    ];
 	  };
 
 	  plugins.fidget = {
@@ -202,10 +194,6 @@ in
 	      hls = {
 		enable = true;
 		installGhc = false;
-	      };
-	      nushell = {
-		filetypes = ["nu"];
-		enable = true;
 	      };
 	      rust_analyzer = {
 		installCargo = false;
@@ -312,7 +300,6 @@ in
 	    };
 	  };
 	  extraPlugins = [
-	    pkgs.vimPlugins.nvim-nu
 	    pkgs.vimPlugins.haskell-tools-nvim
 	    pkgs.vimPlugins.nvim-metals
 	    (pkgs.callPackage ./dark-notify.nix { })

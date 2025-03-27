@@ -78,4 +78,3 @@ vim.keymap.set('n', '<leader>de', dap.close, opts)
 -- [ METALS ]
 -- [ DARK NOTIFY ]
 require('dark_notify').run()
-require('nu').setup{}
