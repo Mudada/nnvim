@@ -8,7 +8,6 @@
 # https://github.com/nushell/nu_scripts/tree/main/themes
 
 source ~/script/load-env.nu
-source ~/script/clever-cloud.nu
 
 alias "edit config" = nvim ~/.config/home-manager/
 alias "go config" = cd ~/.config/home-manager

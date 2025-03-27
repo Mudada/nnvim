@@ -62,6 +62,19 @@ vim.keymap.set('n', '<leader>rq', ht.repl.quit, opts)
 -- Exit terminal 
 vim.api.nvim_set_keymap('t', '<Leader><ESC>', '<C-\\><C-n>', {noremap = true})
 
+-- DAP
+-- :lua require'dap'.continue()
+-- :lua require'dap'.repl.open()
+-- :lua require'dap'.stop()
+-- :lua require'dap'.toggle_breakpoint()
+local dap = require('dap')
+vim.keymap.set('n', '<leader>dtg', dap.toggle_breakpoint, opts)
+vim.keymap.set('n', '<leader>dro', dap.repl.open, opts)
+vim.keymap.set('n', '<leader>dso', dap.step_over, opts)
+vim.keymap.set('n', '<leader>dsi', dap.step_into, opts)
+vim.keymap.set('n', '<leader>dc', dap.continue, opts)
+vim.keymap.set('n', '<leader>de', dap.close, opts)
+
 -- [ METALS ]
 -- [ DARK NOTIFY ]
 require('dark_notify').run()

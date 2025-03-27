@@ -7,6 +7,7 @@ let
     version = "";
   };
   toLuaFile = file: "${builtins.readFile file}";
+  nix-metals-path = "${inputs.nix-metals.packages.${system}.metals}/bin/metals";
 in 
 {
   options = {
@@ -24,8 +25,10 @@ in
     home.packages = [ 
       pkgs.ripgrep
       inputs.nv-dark-notify.packages.${system}.default
+      inputs.nix-metals.packages.${system}.metals
       pkgs.fd
       pkgs.pueue
+      pkgs.coursier
     ];
 
     home.file = {
@@ -114,21 +117,25 @@ in
     nixpkgs = {
       overlays = [
 	(final: prev: {
-	 vimPlugins = prev.vimPlugins // {
-	 haskell-tools = prev.vimUtils.buildVimPlugin {
-	 name = "haskell-tools";
-	 src = inputs.nv-haskell-tools;
-	 };
-	 dark-notify = prev.vimUtils.buildVimPlugin {
-	 name = "dark-notify";
-	 src = inputs.nv-dark-notify;
-	 };
-	 nvim-nu = prev.vimUtils.buildVimPlugin {
-	 name = "nvim-nu";
-	 src = inputs.nvim-nu;
-	 };
-	 };
-	 })
+	  vimPlugins = prev.vimPlugins // {
+	    haskell-tools = prev.vimUtils.buildVimPlugin {
+	      name = "haskell-tools";
+	      src = inputs.nv-haskell-tools;
+	    };
+	    dark-notify = prev.vimUtils.buildVimPlugin {
+	      name = "dark-notify";
+	      src = inputs.nv-dark-notify;
+	    };
+	    nvim-metals = prev.vimUtils.buildVimPlugin {
+	      name = "nvim-metals";
+	      src = inputs.nv-nvim-metals;
+	    };
+	    nvim-nu = prev.vimUtils.buildVimPlugin {
+	      name = "nvim-nu";
+	      src = inputs.nvim-nu;
+	    };
+	  };
+	})
       ];
     };
 
@@ -162,6 +169,29 @@ in
 	  };
 	};
 
+	plugins.cmp-dap.enable = true;
+
+	plugins.dap = {
+	  enable = true;
+	  configurations = {
+	    scala = [
+	      {
+		type = "scala";
+		name = "Run";
+		request = "launch";
+		metals = {
+		  runType = "run";
+		};
+	      }
+	    ];
+	  };
+	  extensions = {
+	    dap-ui = {
+	      enable = true;
+	    };
+	  };
+	};
+
 	plugins.treesitter = { 
 	  enable = true;
 	  settings = {
@@ -171,6 +201,10 @@ in
 	  grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [
 	    treesitter-nu-grammar
 	  ];
+	};
+
+	plugins.fidget = {
+	  enable = true;
 	};
 
 	plugins.which-key = {
@@ -189,9 +223,6 @@ in
 	    };
 	    nushell = {
 	      filetypes = ["nu"];
-	      enable = true;
-	    };
-	    metals = {
 	      enable = true;
 	    };
 	    rust_analyzer = {
@@ -237,6 +268,42 @@ in
 	  key = "<leader>fh";
 	  action = "<cmd>lua require('telescope.builtin').help_tags()<cr>";
 	}
+	######## DAP ########
+	{
+	  mode = "n";
+	  key = "<leader>dtg";
+	  action = ":DapToggleBreakpoint<cr>";
+	}
+	{
+	  mode = "n";
+	  key = "<leader>dro";
+	  action = ":DapToggleRepl<cr>";
+	}
+	{
+	  mode = "n";
+	  key = "<leader>dso";
+	  action = ":DapStepOver<cr>";
+	}
+	{
+	  mode = "n";
+	  key = "<leader>dsi";
+	  action = ":DapStepInto<cr>";
+	}
+	{
+	  mode = "n";
+	  key = "<leader>dsu";
+	  action = ":DapStepOut<cr>";
+	}
+	{
+	  mode = "n";
+	  key = "<leader>dc";
+	  action = ":DapContinue<cr>";
+	}
+	{
+	  mode = "n";
+	  key = "<leader>dst";
+	  action = ":DapTerminate<cr>";
+	}
 	];
 
 	plugins.luasnip.enable = true;
@@ -248,8 +315,9 @@ in
 	  autoEnableSources = true;
 	  settings.sources = [
 	    { name = "nvim_lsp"; }
-	    { name = "path"; }
-	    { name = "buffer"; }
+	    { name = "path"; 	 }
+	    { name = "buffer"; 	 }
+	    { name = "dap"; 	 }
 	  ];
 	  settings.mapping = {
 	    "<C-Space>" = "cmp.mapping.complete()";
@@ -266,10 +334,15 @@ in
 	  nvim-nu
 	  dark-notify
 	  haskell-tools
+	  nvim-metals
 	  treesitter-nu-grammar
 	];
 
-	extraConfigLua = toLuaFile ./nvim/keybinds.lua;
+	extraConfigLua = ''
+	    vim.g.metals_executable_path = "${nix-metals-path}"
+	    ${ toLuaFile ./nvim/keybinds.lua }
+	    ${ toLuaFile ./nvim/metals.lua }
+	'';
       };
     };
   };

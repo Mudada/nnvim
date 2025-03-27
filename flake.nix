@@ -23,9 +23,17 @@
       url = "github:LhKipp/nvim-nu";
       flake = false;
     };
+    nv-nvim-metals = {
+      url = "github:scalameta/nvim-metals";
+      flake = false;
+    };
     treesitter-nu-grammar = {
       url = "github:nushell/tree-sitter-nu";
       flake = false;
+    };
+    nix-metals = {
+      url = "github:ghostbuster91/nix-metals/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
