@@ -11,7 +11,7 @@ in
   };
   
   imports = [
-    ./modules {inherit pkgs; }
+    ./modules
   ];
 
   config = {

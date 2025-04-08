@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 let
   toLuaFile = file: "${builtins.readFile file}";
   nixMetalsPath = "${pkgs.metals}/bin/metals";

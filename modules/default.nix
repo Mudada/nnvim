@@ -1,9 +1,6 @@
-{ pkgs }:
-let 
-
-in
+{ inputs, ... }:
 {
   imports = [
-    ./nvim { inherit pkgs; }
+    ./nvim
   ];
 }
