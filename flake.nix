@@ -23,7 +23,6 @@
       pkgs = nixpkgs.legacyPackages.${system};
       username = "tangui";
     in {
-      # defaultPackage.${system} = home-manager.defaultPackage.${system};
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
