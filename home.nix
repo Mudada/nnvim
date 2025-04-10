@@ -31,9 +31,6 @@ in
       pkgs.zed-editor
     ];
 
-    home.file = {
-    };
-
     home.sessionVariables = {
     };
 
@@ -54,8 +51,15 @@ in
 
     programs.nushell = {
       enable = true;
-      configFile.source = ./nushell/config.nu;
-      envFile.source = ./nushell/env.nu;
+      configFile.source = ./modules/nushell/config.nu;
+      envFile.source = ./modules/nushell/env.nu;
+    };
+
+    home.file = {
+      "scripts" = {
+	source = ./scripts;
+	recursive = true;
+      };
     };
 
     programs.direnv = {

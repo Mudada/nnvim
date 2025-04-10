@@ -9,8 +9,7 @@ in
       {
 	config = { 
 	  enable = true;
-
-	  globals.mapleader = " ";
+globals.mapleader = " ";
 
 	  opts = {
 	    number = true;
@@ -195,8 +194,8 @@ in
 
 	  extraConfigLua = ''
 	    vim.g.metals_executable_path = "${nixMetalsPath}"
-	    ${ toLuaFile ./nvim/keybinds.lua }
-	    ${ toLuaFile ./nvim/metals.lua }
+	    ${ toLuaFile ./keybinds.lua }
+	    ${ toLuaFile ./metals.lua }
 	  '';
 	};
       };
