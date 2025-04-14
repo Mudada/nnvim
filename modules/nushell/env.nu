@@ -99,6 +99,20 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
 ]
 
+# Get last command display and put in a variable for further processing
+$env.config = ($env.config | upsert hooks {
+    display_output: {
+        tee {table | print} | $env.last = $in
+        # $env.last = $in
+        # $env.last | table
+    }
+})
+
+# retrieve last command output
+def last [] {
+  $env.last
+}
+
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 $env.PATH = ($env.PATH ++ [
