@@ -108,6 +108,8 @@ $env.config = ($env.config | upsert hooks {
     }
 })
 
+$env.config.buffer_editor = "nvim"
+
 # retrieve last command output
 def last [] {
   $env.last
