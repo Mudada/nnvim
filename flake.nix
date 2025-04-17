@@ -26,7 +26,7 @@
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-	  ./home.nix { inherit username; }
+	  ./home.nix { inherit username system; }
 	  inputs.nixvim.homeManagerModules.nixvim
 	];
         extraSpecialArgs = { inherit inputs; };
