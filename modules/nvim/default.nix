@@ -4,6 +4,8 @@ let
   nixMetalsPath = "${pkgs.metals}/bin/metals";
 in
 {
+  imports = [];
+
   config = {
     programs.nixvim =
       {
