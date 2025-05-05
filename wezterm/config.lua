@@ -27,13 +27,13 @@ conf.color_schemes = {
 conf.color_scheme = scheme_for_appearance(get_appearance())
 
 -- Common config
-conf.font_size = 14
+conf.font_size = 12
 conf.window_background_opacity = 1
 conf.hide_tab_bar_if_only_one_tab = true
 conf.integrated_title_buttons = { 'Hide', 'Maximize', 'Close' }
 conf.front_end = "WebGpu"
 conf.font = wezterm.font_with_fallback {
-  { family = 'MonacoB2', weight = 'Bold' },
+  { family = 'MonacoB2' },
   { family = 'Nanum Gothic', weight = 'DemiBold', scale = 1.2 }
   -- { family = "카페24동동OTF", scale = 1.2 }
 }
@@ -113,7 +113,7 @@ conf.keys = {
 	{ key = "0", mods = "CTRL", action = wezterm.action.ResetFontSize },
 	{ key = "C", mods = "CTRL", action = wezterm.action.CopyTo("Clipboard") },
 	{ key = "V", mods = "CTRL", action = wezterm.action.PasteFrom("Clipboard") },
-	{ key = "f", mods = "ALT", action = sessionizer.sessionize() },
+--	{ key = "f", mods = "ALT", action = sessionizer.sessionize() },
 	{ key = "L", mods = "ALT", action = wezterm.action.ShowDebugOverlay },
 	{ key = "p", mods = "ALT", action = wezterm.action.ActivateCommandPalette },
 	{ key = "w", mods = "ALT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },

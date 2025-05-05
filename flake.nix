@@ -11,25 +11,18 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # neovim plugins
-    nv-dark-notify = {
-      url = "github:Mudada/dark-notify";
-    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-      username = "tangui";
+      system = "x86_64-linux";
+      username = "mudada";
     in {
-      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-	  ./home.nix { inherit username system; }
-	  inputs.nixvim.homeManagerModules.nixvim
+      nixosConfigurations.${username} = nixpkgs.lib.nixosSystem {
+	modules = [ 
+	  ./modules
 	];
-        extraSpecialArgs = { inherit inputs; };
+	specialArgs = { inherit home-manager username; };
       };
     };
 }
