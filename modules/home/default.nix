@@ -1,4 +1,4 @@
-{ config, lib, pkgs, home-manager, ... }:
+{ config, lib, pkgs, ... }:
 let 
   toLuaFile = file: "${builtins.readFile file}";
   nix-metals-path = "${pkgs.metals}/bin/metals";
@@ -11,9 +11,8 @@ in
       type = lib.types.enum ["gobmeboul" "tangui" "mudada"];
     };
   };
-  imports = [
-  	home-manager.nixosModules.home-manager
-  ];
+  imports = [];
+
   config = {
 
     home-manager.useGlobalPkgs = true;
@@ -60,8 +59,8 @@ in
 	      enable = true;
 	      #${ toLuaFile ../../wezterm/sessionizer.lua }
 	      extraConfig = ''
-	      conf.default_prog = {'${home-manager.users.${config.username}.home.homeDirectory}/.nix-profile/bin/nu'}
 	      ${ toLuaFile ../../wezterm/config.lua }
+	      conf.default_prog = {'${pkgs.nushell}/bin/nu'}
 	      return(conf)
 		      '';
       };

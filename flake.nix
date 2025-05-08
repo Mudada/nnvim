@@ -20,9 +20,10 @@
     in {
       nixosConfigurations.${username} = nixpkgs.lib.nixosSystem {
 	modules = [ 
+	  home-manager.nixosModules.home-manager
 	  ./modules
 	];
-	specialArgs = { inherit home-manager username; };
+	specialArgs = { inherit username; };
       };
     };
 }
