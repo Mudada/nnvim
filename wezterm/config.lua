@@ -33,7 +33,7 @@ conf.hide_tab_bar_if_only_one_tab = true
 conf.integrated_title_buttons = { 'Hide', 'Maximize', 'Close' }
 conf.front_end = "WebGpu"
 conf.font = wezterm.font_with_fallback {
-  { family = 'MonacoB2' },
+  { family = 'MonacoB2', weight = 'Bold' },
   { family = 'Nanum Gothic', weight = 'DemiBold', scale = 1.2 }
   -- { family = "카페24동동OTF", scale = 1.2 }
 }

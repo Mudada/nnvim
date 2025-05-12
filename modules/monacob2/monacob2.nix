@@ -13,5 +13,5 @@ pkgs.stdenvNoCC.mkDerivation {
 		mkdir -p $out/share/fonts
 		cp -R $src $out/share/fonts/opentype/
 		'';
-	meta = { description = "A Gill Sans Font Family derivation."; };
+	meta = { description = "The Monaco font with a bold variant"; };
 }
