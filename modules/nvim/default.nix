@@ -4,14 +4,15 @@ let
   nixMetalsPath = "${pkgs.metals}/bin/metals";
 in
 {
-  imports = [];
+  imports = [
+  ];
 
   config = {
     programs.nixvim =
       {
 	config = { 
 	  enable = true;
-globals.mapleader = " ";
+	  globals.mapleader = " ";
 
 	  opts = {
 	    number = true;

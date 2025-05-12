@@ -21,6 +21,7 @@
       nixosConfigurations.${username} = nixpkgs.lib.nixosSystem {
 	modules = [ 
 	  home-manager.nixosModules.home-manager
+	  inputs.nixvim.nixosModules.nixvim
 	  ./modules
 	];
 	specialArgs = { inherit username; };
