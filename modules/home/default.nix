@@ -30,6 +30,7 @@ in
 	      pkgs.pueue
 	      pkgs.coursier
 	      pkgs.zed-editor
+	      pkgs.vesktop
 	      (pkgs.callPackage ./../monacob2/monacob2.nix {})
 ##      (pkgs.buildFHSEnv {
 ##	name = "zed";

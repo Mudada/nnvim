@@ -76,7 +76,4 @@
 	fuzzel
   ];
   programs.dconf.enable = true;
-  programs.niri = {
-	enable = true;
-  };
 }

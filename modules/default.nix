@@ -4,5 +4,6 @@
     ./system
     ./home { inherit username; }
     ./nvim
+    ./niri { inherit username; }
   ];
 }
