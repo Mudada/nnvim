@@ -72,7 +72,6 @@
 
   environment.systemPackages = with pkgs; [
 	vim
-	neovim
 	git
 	fuzzel
   ];
