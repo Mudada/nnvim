@@ -16,6 +16,7 @@ in
   config = {
 
     home-manager.useUserPackages = true;
+    home-manager.backupFileExtension = "backup";
 
     home-manager.users.${config.username} = {
       home.username = "${config.username}";

@@ -13,9 +13,9 @@ end
 
 local function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
-    return 'Catppuccin Mocha'
-  else
     return 'rose-pine-dawn'
+  else
+    return 'Catppuccin Mocha'
   end
 end
 
