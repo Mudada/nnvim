@@ -6,6 +6,9 @@
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
+    pavucontrol
+    adwaita-icon-theme
+    gtk4
   ];
 
   programs.xwayland.enable = true;
@@ -22,9 +25,25 @@
 
   home-manager.users."${username}" = {
 
-    #   home.file.".config/niri/config.kdl" = {
-    #       source = ./config.kdl;
-    #     };
+    home.file.".config/niri/config.kdl" = {
+      source = ./config.kdl;
+    };
+
+    gtk = {
+        enable = true;
+        theme = {
+          name = "Breeze-Dark";
+          package = pkgs.libsForQt5.breeze-gtk;
+        };
+        iconTheme = {
+          name = "Adwaita";
+          package = pkgs.adwaita-icon-theme;
+        };
+        cursorTheme = {
+          name = "Adwaita";
+          package = pkgs.adwaita-icon-theme;
+        };
+      };
 
     systemd.user.services.niri = {
       Unit = {
