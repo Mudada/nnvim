@@ -1,8 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, username, ... }:
 let 
   toLuaFile = file: "${builtins.readFile file}";
-  nix-metals-path = "${pkgs.metals}/bin/metals";
-  system = "x86_64-linux";
 in 
   {
   options = { 
@@ -17,6 +15,13 @@ in
 
     home-manager.useUserPackages = true;
     home-manager.backupFileExtension = "backup";
+
+    programs._1password.enable = true;
+    programs._1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "${username}" ];
+    };
+
 
     home-manager.users.${config.username} = {
       home.username = "${config.username}";
