@@ -37,6 +37,7 @@ in
 	      pkgs.coursier
 	      pkgs.zed-editor
 	      pkgs.vesktop
+	      pkgs.slack
 	      (pkgs.callPackage ./../monacob2/monacob2.nix {})
 ##      (pkgs.buildFHSEnv {
 ##	name = "zed";
