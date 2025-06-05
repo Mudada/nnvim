@@ -49,6 +49,11 @@
 	"nvidia-drm.modeset=1"
   ];
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
+  services.blueman.enable = true;
+
   console.useXkbConfig = true;
 
   users.users.mudada = {
@@ -56,8 +61,8 @@
     description = "mudada";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    	wezterm
-	firefox
+      wezterm
+      firefox
     ];
   };
 
@@ -71,9 +76,9 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-	vim
-	git
-	fuzzel
+    vim
+    git
+    fuzzel
   ];
   programs.dconf.enable = true;
 }

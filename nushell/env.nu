@@ -2,6 +2,7 @@
 #
 # version = "0.88.1"
 
+$env.EDITOR = "nvim";
 
 def create_left_prompt [] {
     let home =  $nu.home-path

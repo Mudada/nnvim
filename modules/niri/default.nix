@@ -45,6 +45,12 @@
         };
       };
 
+    services = {
+      swaync = {
+	enable = true;
+      };
+    };
+
     systemd.user.services.niri = {
       Unit = {
 	Description = "A scrollable-tiling Wayland compositor";
