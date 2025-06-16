@@ -1,4 +1,4 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, username, inputs, ... }:
 let 
   toLuaFile = file: "${builtins.readFile file}";
 in 
@@ -22,6 +22,14 @@ in
       polkitPolicyOwners = [ "${username}" ];
     };
 
+    environment.etc = {
+      "1password/custom_allowed_browsers" = {
+	text = ''
+	  zen-browser
+	'';
+	mode = "0755";
+      };
+    };
 
     home-manager.users.${config.username} = {
       home.username = "${config.username}";
@@ -42,7 +50,11 @@ in
 	      pkgs.pgcli
 	      pkgs.feh
 	      pkgs.shotman
+	      pkgs.wl-clipboard
+	      pkgs.cliphist
+	      pkgs.wtype
 	      (pkgs.callPackage ./../monacob2/monacob2.nix {})
+	      inputs.zen-browser.packages."x86_64-linux".specific
 ##      (pkgs.buildFHSEnv {
 ##	name = "zed";
 ##	targetPkgs = pkgs: [

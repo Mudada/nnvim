@@ -62,7 +62,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       wezterm
-      firefox
     ];
   };
 
