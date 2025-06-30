@@ -12,9 +12,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
-      url = "github:MarceColl/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    url = "github:0xc000022070/zen-browser-flake";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -28,7 +28,7 @@
 	  inputs.nixvim.nixosModules.nixvim
 	  ./modules
 	];
-	specialArgs = { inherit username; inherit inputs; };
+	specialArgs = { inherit username; inherit inputs; inherit system; };
       };
     };
 }
