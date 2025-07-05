@@ -9,7 +9,16 @@
     pavucontrol
     adwaita-icon-theme
     gtk4
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
+    nautilus
   ];
+
+  xdg.portal = {
+    enable  = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    configPackages = [ pkgs.niri ];
+  };
 
   programs.xwayland.enable = true;
 
@@ -22,6 +31,8 @@
     };
     displayManager.sessionPackages = [ pkgs.niri ];
   };
+
+
 
   home-manager.users."${username}" = {
 

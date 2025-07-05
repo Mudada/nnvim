@@ -23,7 +23,7 @@ in
       enable = true;
       polkitPolicyOwners = [ "${username}" ];
     };
-
+    services.ratbagd.enable = true;
     environment.etc = {
       "1password/custom_allowed_browsers" = {
 	text = ''
@@ -40,6 +40,7 @@ in
       home.stateVersion = "23.11"; 
 
       home.packages = [ 
+	pkgs.piper
 	pkgs.ripgrep
 	pkgs.metals
 	pkgs.fd
@@ -55,6 +56,8 @@ in
 	pkgs.wl-clipboard
 	pkgs.cliphist
 	pkgs.wtype
+	pkgs.yazi
+	pkgs.gimp
 	(pkgs.callPackage ./../monacob2/monacob2.nix {})
 	inputs.zen-browser.packages."${system}".default
 	##      (pkgs.buildFHSEnv {
