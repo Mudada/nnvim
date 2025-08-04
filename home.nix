@@ -8,13 +8,12 @@ in
     username = lib.mkOption {
       type = lib.types.enum ["gobmeboul" "tangui" "mudada"];
     };
-    system = lib.mkOption {
+    sys = lib.mkOption {
       type = lib.types.enum ["aarch64-darwin" "x86_64-linux"];
     };
   };
   
   imports = [
-    ./modules
   ];
 
   config = lib.mkMerge [
@@ -26,7 +25,7 @@ in
 
       home.packages = [ 
 	pkgs.ripgrep
-	inputs.nv-dark-notify.packages.${config.system}.default
+	inputs.nv-dark-notify.packages.${config.sys}.default
 	pkgs.metals
 	pkgs.fd
 	pkgs.pueue
