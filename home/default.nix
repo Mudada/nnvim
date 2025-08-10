@@ -24,9 +24,10 @@ in
     pkgs.pgcli
     pkgs.gimp
     (pkgs.callPackage ./../modules/monacob2.nix {})
-    inputs.zen-browser.packages."${sys}".twilight
     pkgs.wezterm
   ];
+
+  programs.zen-browser.enable = true;
 
   programs.wezterm = {
     enable = true;

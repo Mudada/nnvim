@@ -28,14 +28,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nur, home-manager, ... }:
     let
       sys = "aarch64-darwin";
       username = "mudada"; 
       pkgs = nixpkgs.legacyPackages.${sys};
       overlays = [
+	nur.overlays.default
       ];
     in
       {
