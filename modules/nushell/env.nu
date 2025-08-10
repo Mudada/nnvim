@@ -118,7 +118,7 @@ def last [] {
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 $env.PATH = ($env.PATH ++ [
-/Users/tangui/.nix-profile/bin	
+/run/current-system/sw/bin
 /nix/var/nix/profiles/default/bin
 /usr/local/bin
 /Library/Apple/usr/bin
