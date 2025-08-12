@@ -33,9 +33,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nur, home-manager, ... }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, homebrew-core, homebrew-cask, ... }:
     let
       sys = "aarch64-darwin";
       username = "mudada"; 
@@ -49,6 +61,7 @@
 	modules = [ 
 	  { nixpkgs.overlays = overlays; }
 	  inputs.nixvim.nixDarwinModules.nixvim
+	  nix-homebrew.darwinModules.nix-homebrew
 	  ./modules/darwin 
 	  ./modules/nvim
 	  home-manager.darwinModules.home-manager

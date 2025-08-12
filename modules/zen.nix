@@ -107,6 +107,7 @@ in
             proton-pass
             refined-github
             ublock-origin
+	    qwant-search
           ];
           force = true;
         };
