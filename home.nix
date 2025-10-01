@@ -33,6 +33,10 @@ in
 	pkgs.coursier
 	pkgs.zed-editor
 	pkgs.pgcli
+	pkgs._1password-cli
+	pkgs.clever-tools
+	pkgs.postgresql
+	pkgs.vlc-bin
       ];
 
       home.sessionVariables = {
@@ -58,6 +62,9 @@ in
 	configFile.source = ./modules/nushell/config.nu;
 	envFile.source = ./modules/nushell/env.nu;
 	extraConfig = "source ${userScriptPath}.nu"; # TODO: lib.mkIf (builtins.pathExists userScriptPath) "source ${userScriptPath}.nu";
+	plugins = [
+	  pkgs.nushellPlugins.formats
+	];
       };
 
       home.file = {
@@ -97,6 +104,24 @@ in
 	enable = true;
 	userName = "Tangui";
 	userEmail = "mael.nicolas@clever-cloud.com";
+      };
+
+      programs.zed-editor = {
+	package = pkgs.unstable.zed-editor;
+	installRemoteServer = true;
+	extraPackages = with pkgs; [
+	  nil
+	  nixd
+	  nixfmt-rfc-style
+	];
+      };
+
+      home.shellAliases = {
+	zed = "zeditor";
+      };
+
+      xdg.configFile."zed/settings.json" = {
+	source = ./zed.json;
       };
     }
   ];

@@ -111,7 +111,7 @@ $env.config = ($env.config | upsert hooks {
 $env.config.buffer_editor = "nvim"
 
 # retrieve last command output
-def last [] {
+def last-cmd [] {
   $env.last
 }
 
@@ -125,4 +125,5 @@ $env.PATH = ($env.PATH ++ [
 /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
 /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
 /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+/opt/homebrew/bin/brew
 ])

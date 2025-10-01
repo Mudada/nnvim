@@ -15,6 +15,9 @@
     nv-dark-notify = {
       url = "github:Mudada/dark-notify";
     };
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

@@ -1,0 +1,38 @@
+{
+    "vim_mode": true,
+    "auto_install_extensions": {
+        "sql": true,
+        "nix": true,
+        "scala": true,
+        "nu": true,
+        "java": true,
+    },
+    "tab_size": 4,
+    "preferred_line_length": 100,
+    "soft_wrap": "editor_width",
+    "wrap_guides": [80, 100],
+    "ui_font_size": 14,
+    "buffer_font_size": 14,
+    "buffer_font_family": "MonacoB2",
+    "format_on_save": "on",
+    "terminal": {
+        "font_family": "MonacoB2",
+        "shell": {
+            "program": "nu"
+        }
+    },
+  "theme": {
+        "mode": "system",
+    "light": "Catppuccin Latte - No Italics",
+        "dark": "Catppuccin Frappé - No Italics"
+    },
+    "languages": {
+        "YAML": { "tab_size": 2 },
+        "Ruby": { "tab_size": 2 },
+        "Nix": {
+            "tab_size": 2,
+            "formatter": [{ "external": { "command": "nixfmt" } }]
+        }
+    }
+}
+
