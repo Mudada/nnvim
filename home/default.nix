@@ -90,7 +90,7 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Mudada";
+    userName = username;
     userEmail = "mael.nicolas77@gmail.com";
   };
 }

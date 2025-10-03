@@ -50,14 +50,14 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, homebrew-core, homebrew-cask, ... }:
     let
       sys = "aarch64-darwin";
-      username = "mudada"; 
+      username = "tangui"; 
       pkgs = nixpkgs.legacyPackages.${sys};
       overlays = [
 	nur.overlays.default
       ];
     in
       {
-      darwinConfigurations."mudada" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.${username} = nix-darwin.lib.darwinSystem {
 	modules = [ 
 	  { nixpkgs.overlays = overlays; }
 	  inputs.nixvim.nixDarwinModules.nixvim
@@ -69,7 +69,7 @@
 	    home-manager.useGlobalPkgs = true;
 	    home-manager.useUserPackages = true;
 	    home-manager.backupFileExtension = "backup";
-	    home-manager.users."mudada" = ./home;
+	    home-manager.users.${username} = ./home;
 	    home-manager.extraSpecialArgs = { inherit inputs username sys; };
 	  }
 	];

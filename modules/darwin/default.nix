@@ -36,7 +36,7 @@ in
     shell = pkgs.nushell;
   };
 
-  system.primaryUser = "mudada";
+  system.primaryUser = username;
   system.defaults = {
     finder.AppleShowAllExtensions = true;
     NSGlobalDomain = {

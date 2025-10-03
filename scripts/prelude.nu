@@ -13,15 +13,15 @@ export def "~> list" []: [
     $in 
     | split row -r '\s{2,}' 
     | each { str trim } 
-    | filter {|x| ($x | is-not-empty) and ($x != " ") }
-  } | filter { $in | is-not-empty }
+    | where {|x| ($x | is-not-empty) and ($x != " ") }
+  } | where { $in | is-not-empty }
 }
 
 export def "~> table" [header: list<string>]: any -> table {
   let indexedHeader = $header | enumerate
   $in | par-each { |row|
     $indexedHeader | reduce --fold {} {|it, acc|
-      $acc | merge {($it | get item): ($row | get -i ($it | get -i index))}
+      $acc | merge {($it | get item): ($row | get -o ($it | get -o index))}
     }
  }
 }
@@ -58,7 +58,7 @@ def "test prelude" []: nothing -> nothing {
     let test = ($testInput | ~> list)
 
     assert (($test | length) == 3)
-    assert (($test | filter {|t| ($t | length) != 4}) | is-empty)
+    assert (($test | where {|t| ($t | length) != 4}) | is-empty)
   }
 
   test behead

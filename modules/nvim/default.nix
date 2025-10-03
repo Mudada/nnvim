@@ -3,7 +3,7 @@ let
   toLuaFile = file: "${builtins.readFile file}";
   nixMetalsPath = "${pkgs.metals}/bin/metals";
 in
-{
+  {
   imports = [];
 
   config = {
@@ -11,7 +11,7 @@ in
       {
 	config = { 
 	  enable = true;
-globals.mapleader = " ";
+	  globals.mapleader = " ";
 
 	  opts = {
 	    number = true;
