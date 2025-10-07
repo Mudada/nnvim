@@ -45,12 +45,16 @@
       flake = false;
     };
 
+    nikitabobko-aerospace = {
+      url = "github:nikitabobko/AeroSpace";
+      flake = false;
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, homebrew-core, homebrew-cask, ... }:
+  outputs = inputs@{ nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, ... }:
     let
       sys = "aarch64-darwin";
-      username = "tangui"; 
+      username = "mudada"; 
       pkgs = nixpkgs.legacyPackages.${sys};
       overlays = [
 	nur.overlays.default

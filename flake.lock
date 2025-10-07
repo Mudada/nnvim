@@ -194,6 +194,22 @@
         "type": "github"
       }
     },
+    "nikitabobko-aerospace": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759434905,
+        "narHash": "sha256-2ic/g08BY0Q+E/4DdGukxJKaOjTUJFwo6v7igyRBpIU=",
+        "owner": "nikitabobko",
+        "repo": "AeroSpace",
+        "rev": "e3941b27e350ddef6ca16ac65b2312e8325d369a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nikitabobko",
+        "repo": "AeroSpace",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -356,6 +372,7 @@
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "nikitabobko-aerospace": "nikitabobko-aerospace",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",

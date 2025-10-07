@@ -2,6 +2,7 @@
 let taps = {
   "homebrew/homebrew-core" = inputs.homebrew-core;
   "homebrew/homebrew-cask" = inputs.homebrew-cask;
+  "nikitabobko/homebrew-AeroSpace"  = inputs.nikitabobko-aerospace;
 };
 in
   {
@@ -55,9 +56,8 @@ in
     enable = true;
     enableRosetta = true;
     user = username;
-    taps = taps;
     mutableTaps = false;
-
+    taps = taps;
   };
 
   homebrew = {
