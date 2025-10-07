@@ -57,7 +57,7 @@
       ];
     in
       {
-      darwinConfigurations.${username} = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."${username}" = nix-darwin.lib.darwinSystem {
 	modules = [ 
 	  { nixpkgs.overlays = overlays; }
 	  inputs.nixvim.nixDarwinModules.nixvim
