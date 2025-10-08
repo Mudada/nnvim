@@ -56,7 +56,6 @@ in
     enable = true;
     enableRosetta = true;
     user = username;
-    mutableTaps = false;
     taps = taps;
   };
 
@@ -67,13 +66,16 @@ in
     casks = [
       # Required via casks because 1password doesnt work properly if not in /Applications
       "1password"
+      "nikitabobko/tap/aerospace"
     ];
 
     #ensures only declarative brew apps are installed.
     #apps installed imperatively are deleted
-    onActivation.cleanup = "zap";
-    #ensures auto update and upgrade on darwin rebuild
-    onActivation.autoUpdate = true;
-    onActivation.upgrade = true;
+    onActivation = { 
+      cleanup = "zap";
+      #ensures auto update and upgrade on darwin rebuild
+      autoUpdate = true;
+      upgrade = true;
+    };
   };
 }
