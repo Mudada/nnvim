@@ -1,8 +1,8 @@
 { pkgs, inputs, username, ... }:
 let taps = {
-  "homebrew/homebrew-core" = inputs.homebrew-core;
-  "homebrew/homebrew-cask" = inputs.homebrew-cask;
-  "nikitabobko/homebrew-AeroSpace"  = inputs.nikitabobko-aerospace;
+  "homebrew/homebrew-core" 		= inputs.homebrew-core;
+  "homebrew/homebrew-cask" 		= inputs.homebrew-cask;
+  "nikitabobko/homebrew-AeroSpace"  	= inputs.nikitabobko-aerospace;
 };
 in
   {

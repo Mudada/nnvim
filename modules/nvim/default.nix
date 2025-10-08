@@ -77,7 +77,6 @@ in
 	  plugins.lsp = {
 	    enable = true;
 	    servers = {
-	      solargraph.enable = true;
 	      lua_ls.enable = true;
 	      nixd.enable = true;
 	      hls = {

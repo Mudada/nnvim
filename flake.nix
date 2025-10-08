@@ -54,7 +54,7 @@
   outputs = inputs@{ nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, ... }:
     let
       sys = "aarch64-darwin";
-      username = "mudada"; 
+      username = "tangui"; 
       pkgs = nixpkgs.legacyPackages.${sys};
       overlays = [
 	nur.overlays.default

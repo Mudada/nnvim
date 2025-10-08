@@ -22,7 +22,6 @@ in
     pkgs.zed-editor
     pkgs.ripgrep
     pkgs.pgcli
-    pkgs.gimp
     (pkgs.callPackage ./../modules/monacob2.nix {})
     pkgs.wezterm
     pkgs._1password-cli
