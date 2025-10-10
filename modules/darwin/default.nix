@@ -66,7 +66,7 @@ in
     casks = [
       # Required via casks because 1password doesnt work properly if not in /Applications
       "1password"
-      "nikitabobko/tap/aerospace"
+      "nikitabobko/tap/aerospace" # TODO: fix this so i can install it with mutableTaps: false
     ];
 
     #ensures only declarative brew apps are installed.

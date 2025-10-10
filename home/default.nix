@@ -8,6 +8,7 @@ in
   imports = [
     systemHome
     ../modules/zen.nix 
+    ../modules/zed
   ];
 
   home.stateVersion = "25.11";
@@ -19,12 +20,12 @@ in
     pkgs.fd
     pkgs.pueue
     pkgs.coursier
-    pkgs.zed-editor
     pkgs.ripgrep
     pkgs.pgcli
     (pkgs.callPackage ./../modules/monacob2.nix {})
     pkgs.wezterm
     pkgs._1password-cli
+    pkgs.claude-code
   ];
 
   programs.zen-browser.enable = true;
@@ -37,6 +38,8 @@ in
 	return(conf)
     '';
   };
+
+  programs.zed-editor.enable = true;
 
   programs.nushell = {
     enable = true;
