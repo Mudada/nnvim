@@ -35,6 +35,8 @@ in
 
       themes = {
 	"Nanowise" = ./Nanowise.json;
+	"Catppuccin" = ./Catppuccin.json;
+	"Everforest" = ./EverforestDHBlur.json;
       };
 
       userSettings = {
@@ -48,8 +50,8 @@ in
 	auto_update = false;
 	theme = {
 	  mode = "system";
-	  light = "Nanowise Light";
-	  dark = "Nanowise Galaxy";
+	  light = "Catppuccin Latte";
+	  dark = "Everforest Dark Hard";
 	};
 	assistant = {
 	  enabled = true;
@@ -65,6 +67,38 @@ in
 	  };
 	};
       };
+
+      userKeymaps = [
+	{
+	  "context" = "EmptyPane || SharedScreen || Editor && VimControl && !VimWaiting && !menu";
+	  "bindings" = {
+	    "space f f"	  = "file_finder::Toggle";
+	    "space space" = "file_finder::Toggle";
+	    "space f f"   = "file_finder::Toggle";
+	    "space ," 	  = "tab_switcher::Toggle";
+	    "space /" 	  = "workspace::NewSearch";
+	    "space o l"   = "workspace::ToggleLeftDock";
+	    "space o r"   = "workspace::ToggleRightDock";
+	    "space o a"   = "assistant::ToggleFocus";
+	    "space o c"   = "collab_panel::ToggleFocus";
+	    "space o o"   = "outline_panel::ToggleFocus";
+	    "space o f"   = "project_panel::ToggleFocus";
+	    "space o p"   = "projects::OpenRecent";
+	    "space o t"   = "terminal_panel::ToggleFocus";
+	    "space g g"   = "git::Diff";
+	    "space w v"   = "pane::SplitRight";
+	    "space w h"   = "workspace::ActivatePaneLeft";
+	    "space w l"   = "workspace::ActivatePaneRight";
+	    "space w k"   = "workspace::ActivatePaneUp";
+	    "space w j"   = "workspace::ActivatePaneDown";
+	    "space w z"   = "workspace::ToggleZoom";
+	    "space q q"   = "zed::Quit";
+	    "ctrl-w z"    = "workspace::ToggleZoom";
+	    "ctrl-w t"    = "terminal_panel::ToggleFocus";
+	    "ctrl-`" 	  = "workspace::ToggleBottomDock";
+	  };
+	}
+      ];
     };
   };
 }
