@@ -6,4 +6,6 @@
     pkgs.slack
     pkgs.zoom-us
   ];
+
+  home.file.".config/aerospace/aerospace.toml".source = ../modules/darwin/aerospace.toml;
 }

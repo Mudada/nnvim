@@ -49,9 +49,12 @@
       url = "github:nikitabobko/AeroSpace";
       flake = false;
     };
+
+    # for spotlight
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
-  outputs = inputs@{ nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, ... }:
+  outputs = inputs@{ nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, mac-app-util, ... }:
     let
       sys = "aarch64-darwin";
       username = "tangui"; 
@@ -64,6 +67,7 @@
       darwinConfigurations."${username}" = nix-darwin.lib.darwinSystem {
 	modules = [ 
 	  { nixpkgs.overlays = overlays; }
+	  mac-app-util.darwinModules.default
 	  inputs.nixvim.nixDarwinModules.nixvim
 	  nix-homebrew.darwinModules.nix-homebrew
 	  ./modules/darwin 
@@ -75,6 +79,9 @@
 	    home-manager.backupFileExtension = "backup";
 	    home-manager.users.${username} = ./home;
 	    home-manager.extraSpecialArgs = { inherit inputs username sys; };
+	    home-manager.sharedModules = [
+	      mac-app-util.homeManagerModules.default
+	    ];
 	  }
 	];
 	specialArgs = { inherit inputs username; };

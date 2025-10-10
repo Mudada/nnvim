@@ -72,7 +72,6 @@ in
 	{
 	  "context" = "EmptyPane || SharedScreen || Editor && VimControl && !VimWaiting && !menu";
 	  "bindings" = {
-	    "space f f"	  = "file_finder::Toggle";
 	    "space space" = "file_finder::Toggle";
 	    "space f f"   = "file_finder::Toggle";
 	    "space ," 	  = "tab_switcher::Toggle";
