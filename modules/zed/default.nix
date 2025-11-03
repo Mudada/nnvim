@@ -48,17 +48,13 @@ in
 	## tell zed to use direnv and direnv can use a flake.nix enviroment.
 	load_direnv = "shell_hook";
 	auto_update = false;
+	tab_bar = {
+	  show = false;
+	};
 	theme = {
 	  mode = "system";
 	  light = "Catppuccin Latte";
-	  dark = "Everforest Dark Hard";
-	};
-	assistant = {
-	  enabled = true;
-	  default_model = {
-	    provider = "zed.dev";
-	    model = "claude-sonnet-4";
-	  };
+	  dark = "Everforest Dark Medium";
 	};
 	terminal = {
 	  font_family = "MonacoB2";
@@ -74,11 +70,12 @@ in
 	  "bindings" = {
 	    "space space" = "file_finder::Toggle";
 	    "space f f"   = "file_finder::Toggle";
+	    "space f g"   = "pane::DeploySearch";
 	    "space ," 	  = "tab_switcher::Toggle";
 	    "space /" 	  = "workspace::NewSearch";
 	    "space o l"   = "workspace::ToggleLeftDock";
 	    "space o r"   = "workspace::ToggleRightDock";
-	    "space o a"   = "assistant::ToggleFocus";
+	    "space o a"   = "agent::ToggleFocus";
 	    "space o c"   = "collab_panel::ToggleFocus";
 	    "space o o"   = "outline_panel::ToggleFocus";
 	    "space o f"   = "project_panel::ToggleFocus";

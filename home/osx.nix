@@ -5,6 +5,7 @@
     pkgs.discord
     pkgs.slack
     pkgs.zoom-us
+    pkgs.nodejs_24
   ];
 
   home.file.".config/aerospace/aerospace.toml".source = ../modules/darwin/aerospace.toml;

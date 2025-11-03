@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, username, sys, ... }:
+{ config, pkgs, username, email, sys, ... }:
 let 
   toLuaFile = file: "${builtins.readFile file}";
   userScriptPath = "${config.home.homeDirectory}/scripts/${username}";
@@ -25,10 +25,18 @@ in
     (pkgs.callPackage ./../modules/monacob2.nix {})
     pkgs.wezterm
     pkgs._1password-cli
-    pkgs.claude-code
   ];
 
-  programs.zen-browser.enable = true;
+  programs.zen-browser = {
+    enable = true;
+    package =
+      (pkgs.wrapFirefox.override {
+	libcanberra-gtk3 = pkgs.libcanberra-gtk2;
+      })
+      pkgs.firefox-unwrapped
+      { };
+  };
+
 
   programs.wezterm = {
     enable = true;
@@ -92,7 +100,9 @@ in
 
   programs.git = {
     enable = true;
-    userName = username;
-    userEmail = "mael.nicolas77@gmail.com";
+    settings = {
+      user.name = username;
+      user.email = email;
+    };
   };
 }

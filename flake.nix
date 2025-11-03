@@ -57,34 +57,44 @@
   outputs = inputs@{ nix-darwin, nixpkgs, nur, home-manager, nix-homebrew, mac-app-util, ... }:
     let
       sys = "aarch64-darwin";
-      username = "tangui"; 
       pkgs = nixpkgs.legacyPackages.${sys};
       overlays = [
 	nur.overlays.default
       ];
+      buildNixDdarwinConfiguration = {username, email}:
+	nix-darwin.lib.darwinSystem {
+	  modules = [ 
+	    { nixpkgs.overlays = overlays; }
+	    mac-app-util.darwinModules.default
+	    inputs.nixvim.nixDarwinModules.nixvim
+	    nix-homebrew.darwinModules.nix-homebrew
+	    ./modules/darwin 
+	    ./modules/nvim
+	    home-manager.darwinModules.home-manager
+	    {
+	      home-manager.useGlobalPkgs = true;
+	      home-manager.useUserPackages = true;
+	      home-manager.backupFileExtension = "backup";
+	      home-manager.users.${username} = ./home;
+	      home-manager.extraSpecialArgs = { inherit inputs username sys email; };
+	      home-manager.sharedModules = [
+		mac-app-util.homeManagerModules.default
+	      ];
+	    }
+	  ];
+	  specialArgs = { inherit inputs username email; };
+	};
     in
       {
-      darwinConfigurations."${username}" = nix-darwin.lib.darwinSystem {
-	modules = [ 
-	  { nixpkgs.overlays = overlays; }
-	  mac-app-util.darwinModules.default
-	  inputs.nixvim.nixDarwinModules.nixvim
-	  nix-homebrew.darwinModules.nix-homebrew
-	  ./modules/darwin 
-	  ./modules/nvim
-	  home-manager.darwinModules.home-manager
-	  {
-	    home-manager.useGlobalPkgs = true;
-	    home-manager.useUserPackages = true;
-	    home-manager.backupFileExtension = "backup";
-	    home-manager.users.${username} = ./home;
-	    home-manager.extraSpecialArgs = { inherit inputs username sys; };
-	    home-manager.sharedModules = [
-	      mac-app-util.homeManagerModules.default
-	    ];
-	  }
-	];
-	specialArgs = { inherit inputs username; };
+      darwinConfigurations = {
+	gobmeboul = let
+	  username = "gobmeboul";
+	  email = "mael.nicolas77@gmail.com";
+	in buildNixDdarwinConfiguration {inherit username email;};
+	tangui = let 
+	  username = "tangui";
+	  email = "mael.nicolas@clever-cloud.com";
+	in buildNixDdarwinConfiguration {inherit username email;};
       };
     };
 }
