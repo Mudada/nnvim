@@ -1,5 +1,5 @@
-{ config, pkgs, username, email, sys, ... }:
-let 
+{ config, pkgs, username, email, user, sys, ... }:
+let
   toLuaFile = file: "${builtins.readFile file}";
   userScriptPath = "${config.home.homeDirectory}/scripts/${username}";
   systemHome = if sys == "aarch64-darwin" then ./osx.nix else ./linux.nix;
@@ -7,14 +7,14 @@ in
   {
   imports = [
     systemHome
-    ../modules/zen.nix 
+    ../modules/zen.nix
     ../modules/zed
   ];
 
   home.stateVersion = "25.11";
   home.username = username;
 
-  home.packages = [ 
+  home.packages = [
     pkgs.ripgrep
     pkgs.metals
     pkgs.fd
@@ -53,7 +53,7 @@ in
     enable = true;
     configFile.source = ../modules/nushell/config.nu;
     envFile.source = ../modules/nushell/env.nu;
-    extraEnv = '' 
+    extraEnv = ''
       let username = "${username}"
       $env.PATH = ($env.PATH ++ [
 	$"/etc/profiles/per-user/($username)/bin"

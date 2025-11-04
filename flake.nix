@@ -61,14 +61,15 @@
       overlays = [
 	nur.overlays.default
       ];
-      buildNixDdarwinConfiguration = {username, email}:
+      listToPackages = {ps}: map (p: pkgs."${p}") ps;
+      buildNixDdarwinConfiguration = {username, email, ...}@user:
 	nix-darwin.lib.darwinSystem {
-	  modules = [ 
+	  modules = [
 	    { nixpkgs.overlays = overlays; }
 	    mac-app-util.darwinModules.default
 	    inputs.nixvim.nixDarwinModules.nixvim
 	    nix-homebrew.darwinModules.nix-homebrew
-	    ./modules/darwin 
+	    ./modules/darwin
 	    ./modules/nvim
 	    home-manager.darwinModules.home-manager
 	    {
@@ -76,22 +77,23 @@
 	      home-manager.useUserPackages = true;
 	      home-manager.backupFileExtension = "backup";
 	      home-manager.users.${username} = ./home;
-	      home-manager.extraSpecialArgs = { inherit inputs username sys email; };
+	      home-manager.extraSpecialArgs = { inherit inputs username sys email user; };
 	      home-manager.sharedModules = [
 		mac-app-util.homeManagerModules.default
 	      ];
 	    }
 	  ];
-	  specialArgs = { inherit inputs username email; };
+	  specialArgs = { inherit inputs username email user; };
 	};
     in
       {
       darwinConfigurations = {
-	gobmeboul = let
-	  username = "gobmeboul";
+	mudada = let
+	  username = "mudada";
 	  email = "mael.nicolas77@gmail.com";
-	in buildNixDdarwinConfiguration {inherit username email;};
-	tangui = let 
+		brew-casks = ["stremio"];
+	in buildNixDdarwinConfiguration {inherit username email brew-casks;};
+	tangui = let
 	  username = "tangui";
 	  email = "mael.nicolas@clever-cloud.com";
 	in buildNixDdarwinConfiguration {inherit username email;};

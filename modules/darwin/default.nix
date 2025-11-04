@@ -1,4 +1,4 @@
-{ pkgs, inputs, username, ... }:
+{ pkgs, inputs, username, user, ... }:
 let taps = {
   "homebrew/homebrew-core" 		= inputs.homebrew-core;
   "homebrew/homebrew-cask" 		= inputs.homebrew-cask;
@@ -7,7 +7,7 @@ let taps = {
 in
   {
   environment.systemPackages =
-    [ 
+    [
       pkgs.vim
     ];
 
@@ -49,7 +49,7 @@ in
   };
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
-  system.defaults.dock.persistent-apps = []; 
+  system.defaults.dock.persistent-apps = [];
   system.defaults.dock.tilesize = 32;
 
   nix-homebrew = {
@@ -67,11 +67,11 @@ in
       # Required via casks because 1password doesnt work properly if not in /Applications
       "1password"
       "nikitabobko/tap/aerospace" # TODO: fix this so i can install it with mutableTaps: false
-    ];
+    ] ++ (user.brew-casks or []);
 
     #ensures only declarative brew apps are installed.
     #apps installed imperatively are deleted
-    onActivation = { 
+    onActivation = {
       cleanup = "zap";
       #ensures auto update and upgrade on darwin rebuild
       autoUpdate = true;
