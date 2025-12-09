@@ -25,6 +25,10 @@ in
     (pkgs.callPackage ./../modules/monacob2.nix {})
     pkgs.wezterm
     pkgs._1password-cli
+    pkgs.postman
+    pkgs.ragenix
+    pkgs.rage
+    pkgs.age-plugin-1p
   ];
 
   programs.zen-browser = {

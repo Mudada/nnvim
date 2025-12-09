@@ -53,7 +53,7 @@ in
 	};
 	theme = {
 	  mode = "system";
-	  light = "Catppuccin Latte";
+	  light = "Everforest Dark Medium";
 	  dark = "Everforest Dark Medium";
 	};
 	terminal = {

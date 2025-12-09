@@ -105,9 +105,10 @@ in
         extensions = {
           packages = with pkgs.nur.repos.rycee.firefox-addons; [
             proton-pass
+            proton-vpn
             refined-github
             ublock-origin
-	    qwant-search
+            qwant-search
           ];
           force = true;
         };
@@ -121,21 +122,30 @@ in
               alias = "@pkgs";
               url = "https://search.nixos.org/packages?type=packages&query={searchTerms}";
             };
-            cc-admin = mkEngine {
-              name = "Clever cloud admin panel";
-              alias = "@ccadmin";
-              url = "https://search.nixos.org/packages?type=packages&query={searchTerms}";
-            };
-            cc-console = mkEngine {
-              name = "Clever cloud console";
-              alias = "@console";
-              url = "https://search.nixos.org/packages?type=packages&query={searchTerms}";
-            };
             nixos-wiki = mkEngine {
               name = "NixOS Wiki";
               alias = "!nw";
               url = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
             };
+            cc-admin = mkEngine {
+              name = "Clever cloud admin panel";
+              alias = "@ccadmin";
+              url = "https://admin.clever-cloud.com/magicsearch?query={searchTerms}";
+            };
+            cc-console = mkEngine {
+              name = "Clever cloud console";
+              alias = "@console";
+              url = "https://console.clever-cloud.com/?search={searchTerms}";
+            };
+            qwant = mkEngine {
+              name = "Qwant";
+              url = "https://www.qwant.com/?q={searchTerms}";
+              alias = "@qwant";
+            };
+            "google".metaData.hidden = true;
+            "bing".metaData.hidden = true;
+            "Wikipedia".metaData.hidden = true;
+            "Perplexity".metaData.hidden = true;
           };
           force = true;
         };

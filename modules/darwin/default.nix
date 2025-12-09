@@ -1,8 +1,8 @@
-{ pkgs, inputs, username, user, ... }:
+{ config, lib, pkgs, inputs, username, user, ... }:
 let taps = {
-  "homebrew/homebrew-core" 		= inputs.homebrew-core;
-  "homebrew/homebrew-cask" 		= inputs.homebrew-cask;
-  "nikitabobko/homebrew-AeroSpace"  	= inputs.nikitabobko-aerospace;
+  "homebrew/homebrew-core" 		     = inputs.homebrew-core;
+  "homebrew/homebrew-cask" 		     = inputs.homebrew-cask;
+  "nikitabobko/homebrew-AeroSpace" = inputs.nikitabobko-aerospace;
 };
 in
   {
@@ -52,14 +52,20 @@ in
   system.defaults.dock.persistent-apps = [];
   system.defaults.dock.tilesize = 32;
 
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   nix-homebrew = {
     enable = true;
     enableRosetta = true;
     user = username;
     taps = taps;
+    mutableTaps = true; # must for cc-clamav
   };
 
-  homebrew = {
+  age.secrets.cc-clamav.file = ../../secrets/cc-clamav.age;
+
+  homebrew =
+  {
     enable = true;
     taps = builtins.attrNames taps;
 
@@ -67,6 +73,9 @@ in
       # Required via casks because 1password doesnt work properly if not in /Applications
       "1password"
       "nikitabobko/tap/aerospace" # TODO: fix this so i can install it with mutableTaps: false
+      "telegram"
+      "stremio"
+      "protonvpn"
     ] ++ (user.brew-casks or []);
 
     #ensures only declarative brew apps are installed.
@@ -79,4 +88,4 @@ in
     };
   };
 
-}
+  }
