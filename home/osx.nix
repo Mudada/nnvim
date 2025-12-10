@@ -6,6 +6,9 @@
     pkgs.slack
     pkgs.zoom-us
     pkgs.nodejs_24
+    # yubikey
+    pkgs.gnupg
+    pkgs.yubikey-manager
   ];
 
   home.file.".config/aerospace/aerospace.toml".source = ../modules/darwin/aerospace.toml;

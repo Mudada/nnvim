@@ -3,6 +3,7 @@ let taps = {
   "homebrew/homebrew-core" 		     = inputs.homebrew-core;
   "homebrew/homebrew-cask" 		     = inputs.homebrew-cask;
   "nikitabobko/homebrew-AeroSpace" = inputs.nikitabobko-aerospace;
+  "joemiller/homebrew-taps"        = inputs.yk-attest-verify;
 };
 in
   {
@@ -62,8 +63,6 @@ in
     mutableTaps = true; # must for cc-clamav
   };
 
-  age.secrets.cc-clamav.file = ../../secrets/cc-clamav.age;
-
   homebrew =
   {
     enable = true;
@@ -77,6 +76,8 @@ in
       "stremio"
       "protonvpn"
     ] ++ (user.brew-casks or []);
+
+    brews = [ "yk-attest-verify" ];
 
     #ensures only declarative brew apps are installed.
     #apps installed imperatively are deleted

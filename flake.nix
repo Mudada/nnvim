@@ -50,6 +50,11 @@
       flake = false;
     };
 
+    yk-attest-verify = {
+      url = "github:joemiller/homebrew-taps";
+      flake = false;
+    };
+
     # for spotlight
     mac-app-util.url = "github:hraban/mac-app-util";
   };
@@ -66,7 +71,6 @@
   nix-darwin.lib.darwinSystem {
     modules = [
       { nixpkgs.overlays = overlays; }
-      agenix.darwinModules.default
       mac-app-util.darwinModules.default
       inputs.nixvim.nixDarwinModules.nixvim
       nix-homebrew.darwinModules.nix-homebrew
