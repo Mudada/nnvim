@@ -1,16 +1,24 @@
-{ config, lib, pkgs, inputs, username, user, ... }:
-let taps = {
-  "homebrew/homebrew-core" 		     = inputs.homebrew-core;
-  "homebrew/homebrew-cask" 		     = inputs.homebrew-cask;
-  "nikitabobko/homebrew-AeroSpace" = inputs.nikitabobko-aerospace;
-  "joemiller/homebrew-taps"        = inputs.yk-attest-verify;
-};
+{
+  lib,
+  pkgs,
+  inputs,
+  username,
+  user,
+  ...
+}:
+let
+  taps = {
+    "homebrew/homebrew-core" = inputs.homebrew-core;
+    "homebrew/homebrew-cask" = inputs.homebrew-cask;
+    "nikitabobko/homebrew-AeroSpace" = inputs.nikitabobko-aerospace;
+    "joemiller/homebrew-taps" = inputs.yk-attest-verify;
+    "clever-cloud/endpoint-security" = import ./cc-clamav.nix { inherit lib; };
+  };
 in
-  {
-  environment.systemPackages =
-    [
-      pkgs.vim
-    ];
+{
+  environment.systemPackages = [
+    pkgs.vim
+  ];
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
@@ -50,7 +58,7 @@ in
   };
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
-  system.defaults.dock.persistent-apps = [];
+  system.defaults.dock.persistent-apps = [ ];
   system.defaults.dock.tilesize = 32;
 
   security.pam.services.sudo_local.touchIdAuth = true;
@@ -63,8 +71,7 @@ in
     mutableTaps = true; # must for cc-clamav
   };
 
-  homebrew =
-  {
+  homebrew = {
     enable = true;
     taps = builtins.attrNames taps;
 
@@ -75,7 +82,8 @@ in
       "telegram"
       "stremio"
       "protonvpn"
-    ] ++ (user.brew-casks or []);
+    ]
+    ++ (user.brew-casks or [ ]);
 
     brews = [ "yk-attest-verify" ];
 
@@ -89,4 +97,4 @@ in
     };
   };
 
-  }
+}
