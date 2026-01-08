@@ -25,22 +25,19 @@ in
     (pkgs.callPackage ./../modules/monacob2.nix {})
     pkgs.wezterm
     pkgs._1password-cli
-    pkgs.postman
     pkgs.ragenix
     pkgs.rage
     pkgs.age-plugin-1p
+    pkgs.claude-code
   ];
 
   programs.zen-browser = {
     enable = true;
-    package =
-      (pkgs.wrapFirefox.override {
-	libcanberra-gtk3 = pkgs.libcanberra-gtk2;
-      })
-      pkgs.firefox-unwrapped
-      { };
   };
 
+  home.file.".claude/settings.json".text = builtins.toJSON {
+    model = "claude-opus-4-5-20251101";
+  };
 
   programs.wezterm = {
     enable = true;
@@ -68,6 +65,9 @@ in
       source ${userScriptPath}.nu
     ''; # TODO: lib.mkIf (builtins.pathExists userScriptPath) "source ${userScriptPath}.nu";
   };
+
+  programs.carapace.enable = true;
+  programs.carapace.enableNushellIntegration = true;
 
   home.file = {
     "scripts" = {
@@ -108,5 +108,14 @@ in
       user.name = username;
       user.email = email;
     };
+  };
+
+  programs.jujutsu = {
+    enable = true;
+        settings = {
+          user.name = username;
+          user.email = email;
+          ui.default-command = "log";
+        };
   };
 }

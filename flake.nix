@@ -72,7 +72,11 @@
       sys = "aarch64-darwin";
       overlays = [
         nur.overlays.default
-      ];
+      ] ++ [(
+	  inputs.pkgs.clever-tools.overrideAttrs (oldAttrs: {
+	    npmFlags = [ "--ignore-scripts" ];
+	  });
+	);]
       buildNixDdarwinConfiguration =
         { username, email, ... }@user:
         nix-darwin.lib.darwinSystem {

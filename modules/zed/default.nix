@@ -56,6 +56,14 @@ in
           light = "Everforest Dark Medium";
           dark = "Everforest Dark Medium";
         };
+        agent_servers = {
+          claude = {
+            env = {
+              CLAUDE_CODE_EXECUTABLE = "${pkgs.claude-code}/bin/claude";
+              CLAUDE_CODE_MODEL = "claude-opus-4-5-20251101";
+            };
+          };
+        };
         terminal = {
           font_family = "MonacoB2";
           shell = {

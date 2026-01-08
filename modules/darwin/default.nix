@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   inputs,
   username,
@@ -12,7 +11,6 @@ let
     "homebrew/homebrew-cask" = inputs.homebrew-cask;
     "nikitabobko/homebrew-AeroSpace" = inputs.nikitabobko-aerospace;
     "joemiller/homebrew-taps" = inputs.yk-attest-verify;
-    "clever-cloud/endpoint-security" = import ./cc-clamav.nix { inherit lib; };
   };
 in
 {

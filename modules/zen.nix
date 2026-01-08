@@ -119,33 +119,48 @@ in
           engines = {
             nix-packages = mkEngine {
               name = "Nix Packages";
-              alias = "@pkgs";
               url = "https://search.nixos.org/packages?type=packages&query={searchTerms}";
+              alias = "@pkgs";
             };
             nixos-wiki = mkEngine {
               name = "NixOS Wiki";
-              alias = "!nw";
               url = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
+              alias = "!nw";
             };
             cc-admin = mkEngine {
               name = "Clever cloud admin panel";
-              alias = "@ccadmin";
               url = "https://admin.clever-cloud.com/magicsearch?query={searchTerms}";
+              alias = "@ccadmin";
             };
             cc-console = mkEngine {
               name = "Clever cloud console";
-              alias = "@console";
               url = "https://console.clever-cloud.com/?search={searchTerms}";
+              alias = "@console";
+            };
+            naver = mkEngine {
+              name = "Naver English Dictionnary";
+              url = "https://en.dict.naver.com/#/search?query={searchTerms}";
+              alias = "@naver";
             };
             qwant = mkEngine {
               name = "Qwant";
               url = "https://www.qwant.com/?q={searchTerms}";
               alias = "@qwant";
             };
+            gitlab-clever = mkEngine {
+              name = "Gitlab Clever";
+              url = "https://gitlab.corp.clever-cloud.com/search?search={searchTerms}";
+              alias = "@lab";
+            };
+            hoogle = mkEngine {
+              name = "Hoogle Haskell Research";
+              url = "https://hoogle.haskell.org/?hoogle={searchTerms}";
+              alias = "@hoogle";
+            };
             "google".metaData.hidden = true;
             "bing".metaData.hidden = true;
-            "Wikipedia".metaData.hidden = true;
-            "Perplexity".metaData.hidden = true;
+            "Wikipedia (en)".metaData.hidden = true;
+            "perplexity".metaData.hidden = true;
           };
           force = true;
         };
