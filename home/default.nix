@@ -29,6 +29,8 @@ in
     pkgs.rage
     pkgs.age-plugin-1p
     pkgs.claude-code
+    pkgs.helix
+    pkgs.nixd
   ];
 
   programs.zen-browser = {
@@ -43,8 +45,8 @@ in
     enable = true;
     extraConfig = ''
       ${ toLuaFile ../wezterm/config.lua }
-	conf.default_prog = {'/etc/profiles/per-user/${username}/bin/nu'}
-	return(conf)
+      conf.default_prog = {'/etc/profiles/per-user/${username}/bin/nu'}
+      return(conf)
     '';
   };
 

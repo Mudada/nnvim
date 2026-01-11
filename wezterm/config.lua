@@ -40,6 +40,7 @@ conf.font = wezterm.font_with_fallback {
 conf.adjust_window_size_when_changing_font_size = false
 conf.bypass_mouse_reporting_modifiers = "SHIFT"
 conf.audible_bell = "Disabled"
+conf.enable_wayland = false;
 
 -- Window management
 --

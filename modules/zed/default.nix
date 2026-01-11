@@ -43,7 +43,7 @@ in
         vim_mode = true;
         ui_font_size = 14;
         buffer_font_size = 14;
-        show_whitespaces = "all" ;
+        show_whitespaces = "none" ;
         format_on_save = "on";
         ## tell zed to use direnv and direnv can use a flake.nix enviroment.
         load_direnv = "shell_hook";
@@ -69,6 +69,12 @@ in
           shell = {
             program = "nu";
           };
+        };
+        "experimental.theme_overrides" = {
+          "editor.indent_guide_active" = "#5B616C";
+          "editor.active_line.background" = "#2d353b";
+          "editor.indent_guide" = "#2d353b";
+          "hint" = "#465253";
         };
       };
 
