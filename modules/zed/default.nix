@@ -22,7 +22,7 @@ in
       extraPackages = with pkgs; [
         nil
         nixd
-        nixfmt-rfc-style
+        nixfmt
       ];
 
       extensions = [

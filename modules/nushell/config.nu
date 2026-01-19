@@ -66,3 +66,5 @@ $env.config.color_config = {
         attr: b
     }
 }
+
+$env.config.use_kitty_protocol = true;

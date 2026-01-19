@@ -1,10 +1,18 @@
-{ config, pkgs, username, email, user, sys, ... }:
+{
+  config,
+  pkgs,
+  username,
+  email,
+  user,
+  sys,
+  ...
+}:
 let
   toLuaFile = file: "${builtins.readFile file}";
   userScriptPath = "${config.home.homeDirectory}/scripts/${username}";
   systemHome = if sys == "aarch64-darwin" then ./osx.nix else ./linux.nix;
 in
-  {
+{
   imports = [
     systemHome
     ../modules/zen.nix
@@ -22,7 +30,7 @@ in
     pkgs.coursier
     pkgs.ripgrep
     pkgs.pgcli
-    (pkgs.callPackage ./../modules/monacob2.nix {})
+    (pkgs.callPackage ./../modules/monacob2.nix { })
     pkgs.wezterm
     pkgs._1password-cli
     pkgs.ragenix
@@ -31,6 +39,8 @@ in
     pkgs.claude-code
     pkgs.helix
     pkgs.nixd
+    pkgs.anki-bin
+    pkgs.kitty
   ];
 
   programs.zen-browser = {
@@ -39,6 +49,17 @@ in
 
   home.file.".claude/settings.json".text = builtins.toJSON {
     model = "claude-opus-4-5-20251101";
+  };
+
+  programs.helix = {
+    enable = true;
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+      }
+    ];
   };
 
   programs.wezterm = {
@@ -50,18 +71,18 @@ in
     '';
   };
 
-  programs.zed-editor.enable = true;
+  programs.zed-editor.enable = false;
 
   programs.nushell = {
     enable = true;
     configFile.source = ../modules/nushell/config.nu;
     envFile.source = ../modules/nushell/env.nu;
     extraEnv = ''
-      let username = "${username}"
-      $env.PATH = ($env.PATH ++ [
-	$"/etc/profiles/per-user/($username)/bin"
-	$"/Users/($username)/.nix-profile/bin"
-      ])
+            let username = "${username}"
+            $env.PATH = ($env.PATH ++ [
+      	$"/etc/profiles/per-user/($username)/bin"
+      	$"/Users/($username)/.nix-profile/bin"
+            ])
     '';
     extraConfig = ''
       source ${userScriptPath}.nu
@@ -114,10 +135,10 @@ in
 
   programs.jujutsu = {
     enable = true;
-        settings = {
-          user.name = username;
-          user.email = email;
-          ui.default-command = "log";
-        };
+    settings = {
+      user.name = username;
+      user.email = email;
+      ui.default-command = "log";
+    };
   };
 }

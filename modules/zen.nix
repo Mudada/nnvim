@@ -1,8 +1,19 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   zenConfig = config.programs.zen-browser;
 
-  mkEngine = { name, alias, url, }:
+  mkEngine =
+    {
+      name,
+      alias,
+      url,
+    }:
     {
       name = name;
       urls = [
@@ -56,7 +67,7 @@ in
         PrimaryPassword = false;
       };
       profiles.default = {
-	#preConfig = builtins.readFile "${inputs.betterfox.outPath}/zen/user.js";
+        #preConfig = builtins.readFile "${inputs.betterfox.outPath}/zen/user.js";
 
         bookmarks = {
           settings = [
@@ -118,7 +129,7 @@ in
           privateDefault = "qwant";
           engines = {
             nix-packages = mkEngine {
-              name = "Nix Packages";
+              name = "Nix packages";
               url = "https://search.nixos.org/packages?type=packages&query={searchTerms}";
               alias = "@pkgs";
             };
@@ -126,6 +137,11 @@ in
               name = "NixOS Wiki";
               url = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
               alias = "!nw";
+            };
+            home-manager = mkEngine {
+              name = "Home manager options";
+              url = "https://home-manager-options.extranix.com/?query={searchTerms}";
+              alias = "@home";
             };
             cc-admin = mkEngine {
               name = "Clever cloud admin panel";
@@ -138,7 +154,7 @@ in
               alias = "@console";
             };
             naver = mkEngine {
-              name = "Naver English Dictionnary";
+              name = "Naver english dictionnary";
               url = "https://en.dict.naver.com/#/search?query={searchTerms}";
               alias = "@naver";
             };
@@ -148,12 +164,12 @@ in
               alias = "@qwant";
             };
             gitlab-clever = mkEngine {
-              name = "Gitlab Clever";
+              name = "Gitlab clever";
               url = "https://gitlab.corp.clever-cloud.com/search?search={searchTerms}";
               alias = "@lab";
             };
             hoogle = mkEngine {
-              name = "Hoogle Haskell Research";
+              name = "Hoogle haskell research";
               url = "https://hoogle.haskell.org/?hoogle={searchTerms}";
               alias = "@hoogle";
             };

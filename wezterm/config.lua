@@ -42,6 +42,8 @@ conf.bypass_mouse_reporting_modifiers = "SHIFT"
 conf.audible_bell = "Disabled"
 conf.enable_wayland = false;
 
+conf.animation_fps = 144;
+
 -- Window management
 --
 local function activate_tab(key, index)
