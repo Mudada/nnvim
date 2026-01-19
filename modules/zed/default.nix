@@ -1,7 +1,12 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-cfg = config.programs.zed-editor;
+  cfg = config.programs.zed-editor;
 in
 {
   options.programs.zed-editor = {
@@ -43,7 +48,7 @@ in
         vim_mode = true;
         ui_font_size = 14;
         buffer_font_size = 14;
-        show_whitespaces = "none" ;
+        show_whitespaces = "none";
         format_on_save = "on";
         ## tell zed to use direnv and direnv can use a flake.nix enviroment.
         load_direnv = "shell_hook";
@@ -61,6 +66,23 @@ in
             env = {
               CLAUDE_CODE_EXECUTABLE = "${pkgs.claude-code}/bin/claude";
               CLAUDE_CODE_MODEL = "claude-opus-4-5-20251101";
+            };
+          };
+        };
+        lsp = {
+          metals = {
+            binary = {
+              arguments = [
+                "-Dmetals.http=on"
+                "-Dmetals.startMcpServer=true"
+              ];
+            };
+            initialization_options = {
+              isHttpEnabled = true;
+            };
+            settings = {
+              startMcpServer = true;
+              mcpClient = "claude";
             };
           };
         };
@@ -83,29 +105,29 @@ in
           "context" = "EmptyPane || SharedScreen || Editor && VimControl && !VimWaiting && !menu";
           "bindings" = {
             "space space" = "file_finder::Toggle";
-            "space f f"   = "file_finder::Toggle";
-            "space f g"   = "pane::DeploySearch";
-            "space ," 	  = "tab_switcher::Toggle";
-            "space /" 	  = "workspace::NewSearch";
-            "space o l"   = "workspace::ToggleLeftDock";
-            "space o r"   = "workspace::ToggleRightDock";
-            "space o a"   = "agent::ToggleFocus";
-            "space o c"   = "collab_panel::ToggleFocus";
-            "space o o"   = "outline_panel::ToggleFocus";
-            "space o f"   = "project_panel::ToggleFocus";
-            "space o p"   = "projects::OpenRecent";
-            "space o t"   = "terminal_panel::ToggleFocus";
-            "space g g"   = "git::Diff";
-            "space w v"   = "pane::SplitRight";
-            "space w h"   = "workspace::ActivatePaneLeft";
-            "space w l"   = "workspace::ActivatePaneRight";
-            "space w k"   = "workspace::ActivatePaneUp";
-            "space w j"   = "workspace::ActivatePaneDown";
-            "space w z"   = "workspace::ToggleZoom";
-            "space q q"   = "zed::Quit";
-            "ctrl-w z"    = "workspace::ToggleZoom";
-            "ctrl-w t"    = "terminal_panel::ToggleFocus";
-            "ctrl-`" 	  = "workspace::ToggleBottomDock";
+            "space f f" = "file_finder::Toggle";
+            "space f g" = "pane::DeploySearch";
+            "space ," = "tab_switcher::Toggle";
+            "space /" = "workspace::NewSearch";
+            "space o l" = "workspace::ToggleLeftDock";
+            "space o r" = "workspace::ToggleRightDock";
+            "space o a" = "agent::ToggleFocus";
+            "space o c" = "collab_panel::ToggleFocus";
+            "space o o" = "outline_panel::ToggleFocus";
+            "space o f" = "project_panel::ToggleFocus";
+            "space o p" = "projects::OpenRecent";
+            "space o t" = "terminal_panel::ToggleFocus";
+            "space g g" = "git::Diff";
+            "space w v" = "pane::SplitRight";
+            "space w h" = "workspace::ActivatePaneLeft";
+            "space w l" = "workspace::ActivatePaneRight";
+            "space w k" = "workspace::ActivatePaneUp";
+            "space w j" = "workspace::ActivatePaneDown";
+            "space w z" = "workspace::ToggleZoom";
+            "space q q" = "zed::Quit";
+            "ctrl-w z" = "workspace::ToggleZoom";
+            "ctrl-w t" = "terminal_panel::ToggleFocus";
+            "ctrl-`" = "workspace::ToggleBottomDock";
           };
         }
       ];

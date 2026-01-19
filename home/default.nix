@@ -47,10 +47,6 @@ in
     enable = true;
   };
 
-  home.file.".claude/settings.json".text = builtins.toJSON {
-    model = "claude-opus-4-5-20251101";
-  };
-
   programs.helix = {
     enable = true;
     languages.language = [
@@ -65,13 +61,13 @@ in
   programs.wezterm = {
     enable = true;
     extraConfig = ''
-      ${ toLuaFile ../wezterm/config.lua }
+      ${toLuaFile ../wezterm/config.lua}
       conf.default_prog = {'/etc/profiles/per-user/${username}/bin/nu'}
       return(conf)
     '';
   };
 
-  programs.zed-editor.enable = false;
+  programs.zed-editor.enable = true;
 
   programs.nushell = {
     enable = true;
