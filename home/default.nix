@@ -91,6 +91,7 @@ in
     settings = {
       shell = "/etc/profiles/per-user/${username}/bin/nu";
       editor = "hx";
+      enabled_layouts = "splits";
       hide_window_decorations = "titlebar-only";
       window_padding_width = 4;
       tab_bar_style = "powerline";
@@ -99,6 +100,10 @@ in
       macos_quit_when_last_window_closed = true;
     };
     keybindings = {
+      # Vertical split
+      "opt+v" = "launch --location=vsplit";
+      # Close panel
+      "opt+x" = "close_window";
       # Tab switching with cmd+number
       "cmd+1" = "goto_tab 1";
       "cmd+2" = "goto_tab 2";
