@@ -47,6 +47,19 @@ in
 
   programs.helix = {
     enable = true;
+    defaultEditor = true;
+    settings = {
+      theme = "pipi-de-chat";
+      editor = {
+        line-number = "relative";
+        color-modes = true;
+      };
+      editor.cursor-shape = {
+        insert = "bar";
+        normal = "block";
+        select = "underline";
+      };
+    };
     languages = {
       language-server.metals = {
         command = "${pkgs.metals}/bin/metals";
@@ -147,6 +160,12 @@ in
     };
     ".config/kitty/dark-theme.auto.conf".source = ../kitty/rose-pine-dark.conf;
     ".config/kitty/light-theme.auto.conf".source = ../kitty/rose-pine-light.conf;
+    ".config/helix/themes/pipi-de-chat.toml".text = ''
+      inherits = "catppuccin_latte"
+
+      [palette]
+      base = "#FDFFDF"
+    '';
   };
 
   programs.direnv = {

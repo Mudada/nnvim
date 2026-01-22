@@ -74,9 +74,6 @@
         nur.overlays.default
       ] ++ [
         (final: prev: {
-          zed-editor = prev.zed-editor.overrideAttrs (old: {
-            doCheck = false;
-          });
           clever-tools = prev.clever-tools.overrideAttrs (old: {
             npmFlags = [ "--ignore-scripts" ];
           });

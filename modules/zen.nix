@@ -175,7 +175,7 @@ in
             };
             "google".metaData.hidden = true;
             "bing".metaData.hidden = true;
-            "Wikipedia (en)".metaData.hidden = true;
+            "wikipedia".metaData.hidden = true;
             "perplexity".metaData.hidden = true;
           };
           force = true;
