@@ -49,7 +49,7 @@ in
     enable = true;
     defaultEditor = true;
     settings = {
-      theme = "pipi-de-chat";
+      theme = "boo_berry";
       editor = {
         line-number = "relative";
         color-modes = true;
@@ -75,6 +75,11 @@ in
           name = "nix";
           auto-format = true;
           formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+        }
+        {
+          name = "nu";
+          auto-format = true;
+          language-servers = [ ]; # fuck you fucking shit ass shit
         }
         {
           name = "scala";
