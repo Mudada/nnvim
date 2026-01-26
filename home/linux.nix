@@ -1,7 +1,13 @@
-{ pkgs, username, ... }:
+{
+  pkgs,
+  username,
+  inputs,
+  ...
+}:
 {
 
   imports = [
+    inputs.noctalia.homeModules.default
   ];
 
   config = {
@@ -25,9 +31,10 @@
       pkgs.wtype
       pkgs.yazi
       pkgs.gimp
+      pkgs.discord
       (pkgs.callPackage ../modules/monacob2.nix { })
     ];
-    
+
     fonts.fontconfig.enable = true;
 
     home.file = {
@@ -39,6 +46,8 @@
     nixpkgs.config.allowUnfreePredicate = _: true;
 
     programs.home-manager.enable = true;
+
+    programs.noctalia-shell.enable = true;
 
   };
 }

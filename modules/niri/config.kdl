@@ -585,3 +585,5 @@ binds {
     Mod+Shift+P { power-off-monitors; }
     Mod+V { spawn "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy && wtype -M ctrl -M shift -k v -m ctrl"; }
 }
+
+spawn-at-startup "qs" "-c" "noctalia-shell"
