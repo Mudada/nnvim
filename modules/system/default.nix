@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
-  system.stateVersion = "24.11"; 
+  system.stateVersion = "24.11";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -37,16 +36,16 @@
     options = "ctrl:nocaps";
   };
   # NVIDIA
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-  	open = false;
-	modesetting.enable = true;
-	nvidiaSettings = true;
-	package = config.boot.kernelPackages.nvidiaPackages.latest;
+    open = false;
+    modesetting.enable = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   boot.kernelParams = [
-	"nvidia-drm.modeset=1"
+    "nvidia-drm.modeset=1"
   ];
 
   hardware.bluetooth.enable = true;
@@ -59,7 +58,10 @@
   users.users.mudada = {
     isNormalUser = true;
     description = "mudada";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       wezterm
     ];
@@ -69,7 +71,10 @@
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = ["nix-command" "flakes"];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -80,4 +85,16 @@
     fuzzel
   ];
   programs.dconf.enable = true;
+
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "yes"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+    };
+  };
 }

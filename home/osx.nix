@@ -1,4 +1,10 @@
-{ pkgs, inputs, sys, ... }: {
+{
+  pkgs,
+  inputs,
+  sys,
+  ...
+}:
+{
 
   home.packages = [
     inputs.nv-dark-notify.packages.${sys}.default
@@ -9,6 +15,7 @@
     # yubikey
     pkgs.gnupg
     pkgs.yubikey-manager
+    pkgs.wireguard-tools
   ];
 
   home.file.".config/aerospace/aerospace.toml".source = ../modules/darwin/aerospace.toml;

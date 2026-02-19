@@ -11,6 +11,7 @@
   networking.nat.internalInterfaces = [ "wg0" ];
   networking.firewall = {
     allowedUDPPorts = [ 51820 ];
+    allowedTCPPorts = [ 22 ];
   };
 
   networking.wireguard.interfaces = {
@@ -30,6 +31,14 @@
       privateKeyFile = "/etc/wireguard/server-private.key";
 
       peers = [
+        {
+          publicKey = "/Hulinkd+T02SMfw3TLMorxaEZPahrozh4StsNLcyzU=";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+        {
+          publicKey = "C6Jc6rG3qCQ+Ff2G7B7v8qVjkKp17hRBnlaIpFUiLxI=";
+          allowedIPs = [ "10.100.0.3/32" ];
+        }
       ];
     };
   };

@@ -98,7 +98,7 @@ in
     '';
   };
 
-  programs.zed-editor.enable = true;
+  programs.zed-editor.enable = false;
 
   programs.kitty = {
     enable = true;
