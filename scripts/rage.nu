@@ -15,7 +15,7 @@ export def rage-rotate [
         | each { |r| [-r $r] }
         | flatten
     print $keys
-    rage -j 1p -d $secret | save -f /tmp/s
+    rage -i ~/.config/age/keys.txt -d $secret | save -f /tmp/s
     rage ...$keys -o $secret /tmp/s
     rm /tmp/s
 }

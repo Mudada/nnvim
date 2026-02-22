@@ -34,7 +34,6 @@ in
     pkgs._1password-cli
     pkgs.ragenix
     pkgs.rage
-    pkgs.age-plugin-1p
     pkgs.claude-code
     pkgs.helix
     pkgs.nixd
@@ -145,10 +144,10 @@ in
     envFile.source = ../modules/nushell/env.nu;
     extraEnv = ''
             let username = "${username}"
-            $env.PATH = ($env.PATH ++ [
+            $env.PATH = ([
       	$"/etc/profiles/per-user/($username)/bin"
       	$"/Users/($username)/.nix-profile/bin"
-            ])
+            ] ++ $env.PATH)
     '';
     extraConfig = ''
       source ${userScriptPath}.nu
@@ -197,6 +196,20 @@ in
 
   programs.jq = {
     enable = true;
+  };
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      addKeysToAgent = "yes";
+    };
+    matchBlocks."github.com" = {
+      hostname = "github.com";
+      user = "git";
+      identityFile = "/run/agenix/ssh-personal";
+      identitiesOnly = true;
+    };
   };
 
   programs.git = {

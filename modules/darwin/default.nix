@@ -14,6 +14,16 @@ let
   };
 in
 {
+  age.identityPaths = [
+    "/Users/${username}/.config/age/keys.txt"
+  ];
+
+  age.secrets.ssh-personal = {
+    file = ../../secrets/ssh-personal.age;
+    owner = username;
+    mode = "0600";
+  };
+
   environment.systemPackages = [
     pkgs.vim
   ];

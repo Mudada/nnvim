@@ -60,6 +60,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "nix-darwin";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     # for spotlight
     mac-app-util.url = "github:hraban/mac-app-util";
   };
@@ -72,6 +79,7 @@
       home-manager,
       nix-homebrew,
       mac-app-util,
+      agenix,
       ...
     }:
     let
@@ -93,6 +101,7 @@
             mac-app-util.darwinModules.default
             inputs.nixvim.nixDarwinModules.nixvim
             nix-homebrew.darwinModules.nix-homebrew
+            agenix.darwinModules.default
             ./modules/darwin
             ./modules/nvim
             home-manager.darwinModules.home-manager
@@ -131,6 +140,7 @@
             { nixpkgs.overlays = overlays; }
             home-manager.nixosModules.home-manager
             inputs.nixvim.nixosModules.nixvim
+            agenix.nixosModules.default
             ./modules/system
             ./modules/niri
             {
