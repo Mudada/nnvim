@@ -79,6 +79,16 @@ in
     mutableTaps = true; # must for cc-clamav
   };
 
+  # Fix Stremio codesigning after homebrew upgrade
+  system.activationScripts.postActivation.text = ''
+    if [ -d /Applications/Stremio.app ]; then
+      xattr -cr /Applications/Stremio.app
+      find /Applications/Stremio.app -name "._*" -delete
+      find /Applications/Stremio.app -name ".DS_Store" -delete
+      codesign --force --deep --sign - /Applications/Stremio.app
+    fi
+  '';
+
   homebrew = {
     enable = true;
     taps = builtins.attrNames taps;
