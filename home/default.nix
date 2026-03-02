@@ -4,6 +4,7 @@
   username,
   email,
   sys,
+  inputs,
   ...
 }:
 let
@@ -13,6 +14,7 @@ let
 in
 {
   imports = [
+    inputs.agenix.homeManagerModules.default
     systemHome
     ../modules/zen.nix
     ../modules/zed
@@ -198,6 +200,15 @@ in
     enable = true;
   };
 
+  age.identityPaths = [
+    "${config.xdg.configHome}/age/keys.txt"
+  ];
+
+  age.secrets.ssh-personal = {
+    file = ../secrets/ssh-personal.age;
+    path = "${config.home.homeDirectory}/.ssh/id_personal";
+  };
+
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
@@ -207,7 +218,7 @@ in
     matchBlocks."github.com" = {
       hostname = "github.com";
       user = "git";
-      identityFile = "/run/agenix/ssh-personal";
+      identityFile = config.age.secrets.ssh-personal.path;
       identitiesOnly = true;
     };
   };

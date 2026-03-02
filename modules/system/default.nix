@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  username,
+  ...
+}:
 
 {
   imports = [
@@ -78,16 +83,6 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-
-  age.identityPaths = [
-    "/home/mudada/.config/age/keys.txt"
-  ];
-
-  age.secrets.ssh-personal = {
-    file = ../../secrets/ssh-personal.age;
-    owner = "mudada";
-    mode = "0600";
-  };
 
   environment.systemPackages = with pkgs; [
     vim

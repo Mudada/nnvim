@@ -101,7 +101,6 @@
             mac-app-util.darwinModules.default
             inputs.nixvim.nixDarwinModules.nixvim
             nix-homebrew.darwinModules.nix-homebrew
-            agenix.darwinModules.default
             ./modules/darwin
             ./modules/nvim
             home-manager.darwinModules.home-manager
@@ -140,7 +139,6 @@
             { nixpkgs.overlays = overlays; }
             home-manager.nixosModules.home-manager
             inputs.nixvim.nixosModules.nixvim
-            agenix.nixosModules.default
             ./modules/system
             ./modules/niri
             {

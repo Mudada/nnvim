@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   username,
   inputs,
@@ -41,6 +42,7 @@
     };
 
     home.sessionVariables = {
+      AGENIX_IDENTITY = "${config.xdg.configHome}/age/keys.txt";
     };
 
     nixpkgs.config.allowUnfreePredicate = _: true;
