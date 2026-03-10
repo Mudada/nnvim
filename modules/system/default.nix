@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
   ];
 
   system.stateVersion = "24.11";
@@ -60,9 +59,9 @@
 
   console.useXkbConfig = true;
 
-  users.users.mudada = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "mudada";
+    description = username;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -72,7 +71,7 @@
     ];
   };
 
-  services.getty.autologinUser = "mudada";
+  services.getty.autologinUser = username;
 
   nix = {
     package = pkgs.nix;
@@ -90,16 +89,4 @@
     fuzzel
   ];
   programs.dconf.enable = true;
-
-  services.openssh = {
-    enable = true;
-    ports = [ 22 ];
-    settings = {
-      PasswordAuthentication = true;
-      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-      UseDns = true;
-      X11Forwarding = false;
-      PermitRootLogin = "yes"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
-    };
-  };
 }

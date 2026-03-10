@@ -17,14 +17,7 @@
 
     home.packages = [
       pkgs.piper
-      pkgs.ripgrep
-      pkgs.metals
-      pkgs.fd
-      pkgs.pueue
-      pkgs.coursier
       pkgs.slack
-      pkgs.ripgrep
-      pkgs.pgcli
       pkgs.feh
       pkgs.shotman
       pkgs.wl-clipboard
@@ -33,7 +26,6 @@
       pkgs.yazi
       pkgs.gimp
       pkgs.discord
-      (pkgs.callPackage ../modules/monacob2.nix { })
     ];
 
     fonts.fontconfig.enable = true;

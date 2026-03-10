@@ -93,108 +93,32 @@
           });
         })
       ];
-      buildNixDdarwinConfiguration =
-        { username, email, ... }@user:
-        nix-darwin.lib.darwinSystem {
-          modules = [
-            { nixpkgs.overlays = overlays; }
-            mac-app-util.darwinModules.default
-            inputs.nixvim.nixDarwinModules.nixvim
-            nix-homebrew.darwinModules.nix-homebrew
-            ./modules/darwin
-            ./modules/nvim
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = "backup";
-              home-manager.users.${username} = ./home;
-              home-manager.extraSpecialArgs = {
-                sys = "aarch64-darwin";
-                inherit
-                  inputs
-                  username
-                  email
-                  user
-                  ;
-              };
-              home-manager.sharedModules = [
-                mac-app-util.homeManagerModules.default
-              ];
-            }
-          ];
-          specialArgs = {
-            inherit
-              inputs
-              username
-              email
-              user
-              ;
-          };
-        };
-      buildNixosConfiguration =
-        { username, email, ... }@user:
-        nixpkgs.lib.nixosSystem {
-          modules = [
-            { nixpkgs.overlays = overlays; }
-            home-manager.nixosModules.home-manager
-            inputs.nixvim.nixosModules.nixvim
-            ./modules/system
-            ./modules/niri
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = "backup";
-              home-manager.users.${username} = ./home;
-              home-manager.extraSpecialArgs = {
-                sys = "x86_64-linux";
-                inherit
-                  inputs
-                  username
-                  email
-                  user
-                  ;
-              };
-            }
-            ./modules/nvim
-            ./modules/steam.nix
-            ./modules/linux
-            ./modules/wireguard
-          ];
-          specialArgs = {
-            sys = "x86_64-linux";
-            inherit
-              inputs
-              username
-              email
-              user
-              ;
-          };
-        };
+
+      mkDarwin = host: nix-darwin.lib.darwinSystem {
+        modules = [
+          { nixpkgs.overlays = overlays; }
+          mac-app-util.darwinModules.default
+          inputs.nixvim.nixDarwinModules.nixvim
+          nix-homebrew.darwinModules.nix-homebrew
+          home-manager.darwinModules.home-manager
+          host
+        ];
+        specialArgs = { inherit inputs mac-app-util; };
+      };
+
+      mkNixos = host: nixpkgs.lib.nixosSystem {
+        modules = [
+          { nixpkgs.overlays = overlays; }
+          home-manager.nixosModules.home-manager
+          inputs.nixvim.nixosModules.nixvim
+          host
+        ];
+        specialArgs = { inherit inputs; };
+      };
     in
     {
-      nixosConfigurations = {
-        marcus =
-          let
-            username = "mudada";
-            email = "mael.nicolas77@gmail.com";
-          in
-          buildNixosConfiguration { inherit username email; };
-      };
-      darwinConfigurations = {
-        mudada =
-          let
-            username = "mudada";
-            email = "mael.nicolas77@gmail.com";
-            brew-casks = [ "stremio" ];
-          in
-          buildNixDdarwinConfiguration { inherit username email brew-casks; };
-        tangui =
-          let
-            username = "tangui";
-            email = "mael.nicolas@clever-cloud.com";
-          in
-          buildNixDdarwinConfiguration { inherit username email; };
-      };
+      nixosConfigurations.marcus = mkNixos ./hosts/marcus;
+      darwinConfigurations.mudada = mkDarwin ./hosts/mudada;
+      darwinConfigurations.tangui = mkDarwin ./hosts/tangui;
     };
 }
