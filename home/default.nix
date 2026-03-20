@@ -53,6 +53,9 @@ in
       source = ../scripts;
       recursive = true;
     };
+    ".claude/settings.json".text = builtins.toJSON {
+      includeCoAuthoredBy = false;
+    };
   };
 
   age.identityPaths = [

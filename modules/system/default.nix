@@ -14,9 +14,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "mudada";
-
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "mudada";
+    networkmanager.enable = true;
+    nameservers = [
+      "86.54.11.13"
+      "86.54.11.213"
+      "2a13:1001::86:54:11:13"
+      "2a13:1001::86:54:11:213"
+    ];
+  };
 
   time.timeZone = "Europe/Paris";
 

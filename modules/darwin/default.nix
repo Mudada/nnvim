@@ -55,6 +55,19 @@ in
       "com.apple.swipescrolldirection" = true;
     };
   };
+  networking = {
+    knownNetworkServices = [
+      "Wi-Fi"
+      "Thunderbolt Bridge"
+    ];
+    dns = [
+      "86.54.11.13"
+      "86.54.11.213"
+      "2a13:1001::86:54:11:13"
+      "2a13:1001::86:54:11:213"
+    ];
+  };
+
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
   system.defaults.dock.persistent-apps = [ ];

@@ -115,6 +115,8 @@ in
 
         extensions = {
           packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            decentraleyes
+            localcdn
             proton-pass
             proton-vpn
             refined-github
