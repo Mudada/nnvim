@@ -91,6 +91,11 @@
           clever-tools = prev.clever-tools.overrideAttrs (old: {
             npmFlags = [ "--ignore-scripts" ];
           });
+          direnv = prev.direnv.overrideAttrs (old: {
+            postPatch = (old.postPatch or "") + ''
+              substituteInPlace GNUmakefile --replace-fail "-linkmode=external" ""
+            '';
+          });
         })
       ];
 
