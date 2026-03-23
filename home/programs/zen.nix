@@ -184,6 +184,8 @@ in
         };
 
         settings = {
+          "privacy.sanitize.sanitizeOnShutdown" = true;
+          "privacy.clearOnShutdown_v2.cookiesAndStorage" = true;
         };
       };
     };

@@ -102,6 +102,8 @@ in
       "1password"
       "nikitabobko/tap/aerospace" # TODO: fix this so i can install it with mutableTaps: false
       "telegram"
+      "proton-mail"
+      "proton-pass"
       "protonvpn"
     ]
     ++ (user.brew-casks or [ ]);
