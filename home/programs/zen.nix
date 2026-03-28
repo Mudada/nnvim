@@ -155,9 +155,14 @@ in
               url = "https://console.clever-cloud.com/?search={searchTerms}";
               alias = "@console";
             };
-            naver = mkEngine {
+            naver-dictionnary = mkEngine {
               name = "Naver english dictionnary";
               url = "https://en.dict.naver.com/#/search?query={searchTerms}";
+              alias = "@sajon";
+            };
+            naver-search = mkEngine {
+              name = "Naver";
+              url = "https://search.naver.com/search.naver?query={searchTerms}";
               alias = "@naver";
             };
             qwant = mkEngine {

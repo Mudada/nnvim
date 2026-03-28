@@ -12,6 +12,7 @@
   networking.firewall = {
     allowedUDPPorts = [ 51820 ];
     allowedTCPPorts = [ 22 ];
+    trustedInterfaces = [ "wg0" ];
   };
 
   networking.wireguard.interfaces = {

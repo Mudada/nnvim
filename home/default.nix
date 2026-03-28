@@ -40,13 +40,14 @@ in
     pkgs.claude-code
     pkgs.nixd
     pkgs.anki-bin
+    pkgs.rustup
   ];
 
   programs.zen-browser = {
     enable = true;
   };
 
-  programs.zed-editor.enable = false;
+  programs.zed-editor.enable = true;
 
   home.file = {
     "scripts" = {

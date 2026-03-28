@@ -103,6 +103,7 @@ in
       "nikitabobko/tap/aerospace" # TODO: fix this so i can install it with mutableTaps: false
       "telegram"
       "proton-mail"
+      "proton-drive"
       "proton-pass"
       "protonvpn"
     ]

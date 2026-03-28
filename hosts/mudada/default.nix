@@ -6,7 +6,7 @@
 let
   username = "mudada";
   email = "mael.nicolas77@gmail.com";
-  brew-casks = [ "stremio" ];
+  brew-casks = [ ];
   user = { inherit username email brew-casks; };
 in
 {
