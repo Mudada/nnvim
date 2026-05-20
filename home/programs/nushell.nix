@@ -1,10 +1,15 @@
 {
   config,
+  lib,
   username,
   ...
 }:
 let
   userScriptPath = "${config.home.homeDirectory}/scripts/${username}";
+  scriptFiles = builtins.filter
+    (f: lib.hasSuffix ".nu" f)
+    (builtins.attrNames (builtins.readDir ../../scripts));
+  useStatements = lib.concatMapStringsSep "\n" (f: "use ${f} *") scriptFiles;
 in
 {
   programs.nushell = {
@@ -19,8 +24,9 @@ in
             ] ++ $env.PATH)
     '';
     extraConfig = ''
+      ${useStatements}
       source ${userScriptPath}.nu
-    ''; # TODO: lib.mkIf (builtins.pathExists userScriptPath) "source ${userScriptPath}.nu";
+    '';
   };
 
   programs.carapace.enable = true;
