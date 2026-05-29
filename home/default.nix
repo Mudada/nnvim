@@ -41,6 +41,7 @@ in
     pkgs.nixd
     pkgs.anki-bin
     pkgs.rustup
+    pkgs.signal-desktop
   ];
 
   programs.zen-browser = {
