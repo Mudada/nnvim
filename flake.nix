@@ -33,6 +33,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     homebrew-core = {
@@ -80,6 +85,7 @@
       nix-homebrew,
       mac-app-util,
       agenix,
+      disko,
       ...
     }:
     let
@@ -109,7 +115,9 @@
       mkNixos = host: nixpkgs.lib.nixosSystem {
         modules = [
           { nixpkgs.overlays = overlays; }
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          agenix.nixosModules.default
           inputs.nixvim.nixosModules.nixvim
           host
         ];
@@ -118,6 +126,7 @@
     in
     {
       nixosConfigurations.marcus = mkNixos ./hosts/marcus;
+      nixosConfigurations.arthur = mkNixos ./hosts/arthur;
       darwinConfigurations.mudada = mkDarwin ./hosts/mudada;
       darwinConfigurations.tangui = mkDarwin ./hosts/tangui;
     };

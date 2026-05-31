@@ -103,6 +103,13 @@ input {
     position x=1280 y=0
 }
 
+output "DP-1" {
+    mode "2560x1440@143.912"
+    transform "normal"
+    scale 1
+    
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -302,6 +309,13 @@ window-rule {
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
+}
+
+window-rule {
+  match app-id=r#"steam_app_2694490"# 
+  open-floating false
+  open-maximized true
+  open-fullscreen true
 }
 
 window-rule {
