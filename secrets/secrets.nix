@@ -12,4 +12,8 @@ in
     arthur
     mudada
   ];
+  "forgejo-runner-token.age".publicKeys = [
+    arthur
+    mudada
+  ];
 }

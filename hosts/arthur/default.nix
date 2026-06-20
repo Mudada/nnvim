@@ -13,6 +13,7 @@ in
     (modulesPath + "/profiles/qemu-guest.nix")
     ./disk-config.nix
     ./hardware-configuration.nix
+    ./forgejo-runner.nix
   ];
 
   boot.loader.grub = {
