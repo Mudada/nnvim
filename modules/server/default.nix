@@ -6,11 +6,18 @@
     enable = true;
     ports = [ 22 ];
     settings = {
-      PasswordAuthentication = true;
-      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-      UseDns = true;
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = null;
+      UseDns = false;
       X11Forwarding = false;
-      PermitRootLogin = "yes"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
     };
+  };
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 ];
+    # WireGuard tunnel is trusted — Jellyfin is only reachable via VPN
+    trustedInterfaces = [ "wg0" ];
   };
 }

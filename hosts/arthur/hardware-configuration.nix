@@ -1,17 +1,13 @@
-# Disk layout (/, /boot) is declared in disko.nix — no fileSystems here.
-# After reinstall, regenerate with nixos-generate-config and keep only the hardware sections.
 { config, lib, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "evdev" ];
+  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-
-  swapDevices = [ ];
 
   networking.useDHCP = lib.mkDefault true;
 

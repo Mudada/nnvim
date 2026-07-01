@@ -126,6 +126,7 @@
     in
     {
       nixosConfigurations.marcus = mkNixos ./hosts/marcus;
+      nixosConfigurations.arthur = mkNixos ./hosts/arthur;
       darwinConfigurations.mudada = mkDarwin ./hosts/mudada;
       darwinConfigurations.tangui = mkDarwin ./hosts/tangui;
     };

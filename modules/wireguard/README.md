@@ -1,63 +1,53 @@
-# WireGuard Module
+# WireGuard
 
-This module configures a WireGuard VPN server on the NixOS host (marcus). It is imported only in `buildNixosConfiguration` in `flake.nix`.
+Hub-and-spoke topology. The arthur VPS is the hub; all other devices are spokes.
+Marcus lives behind a residence NAT with no fixed IP — it dials out with PersistentKeepalive.
 
-## How it works
+## Files
 
-The server runs a `wg0` interface on the `10.100.0.0/24` subnet:
+| File        | Purpose                                          |
+|-------------|--------------------------------------------------|
+| server.nix  | Relay VPS: WireGuard server, peers all devices   |
+| client.nix  | Marcus: WireGuard client, connects to arthur      |
 
-- **Server IP**: `10.100.0.1/24`
-- **Listen port**: `51820` (UDP)
-- **Private key**: stored at `/etc/wireguard/server-private.key` on the server (not managed by nix -- placed manually)
-- **NAT**: enabled, forwarding traffic from `wg0` to `eth0`
+## Peer IPs
 
-Firewall rules allow UDP 51820 (WireGuard) and TCP 22 (SSH).
+| Device  | VPN IP      | Public key file        |
+|---------|-------------|------------------------|
+| arthur   | 10.100.0.1  | arthur-public.key       |
+| mac     | 10.100.0.2  | mac-public.key         |
+| iphone  | 10.100.0.3  | iphone-public.key      |
+| marcus  | 10.100.0.4  | marcus-public.key      |
 
-## Current peers
+## Initial key setup
 
-| Peer   | Public key file       | Tunnel IP    |
-|--------|-----------------------|--------------|
-| mac    | `mac-public.key`      | 10.100.0.2   |
-| iphone | `iphone-public.key`   | 10.100.0.3   |
+### On marcus (client)
+```sh
+wg genkey | sudo tee /etc/wireguard/marcus-private.key | wg pubkey | sudo tee /etc/wireguard/marcus-public.key
+# Copy the public key output into modules/wireguard/server.nix → marcus peer publicKey
+```
 
-## Adding a peer
+### On arthur (server)
+```sh
+wg genkey | sudo tee /etc/wireguard/arthur-private.key | wg pubkey | sudo tee /etc/wireguard/arthur-public.key
+# Copy the public key output into modules/wireguard/client.nix → arthur peer publicKey
+```
 
-1. Generate a keypair on the new device:
+## Updating mac/iphone client configs
 
-   ```sh
-   wg genkey | tee private.key | wg pubkey > public.key
-   ```
+Mac and iPhone WireGuard configs only need one change: update the `Endpoint` from
+marcus's old home IP to the arthur VPS's public IP. Everything else (keys, IPs) stays the same.
 
-2. Save the public key in this directory (e.g. `tablet-public.key`).
+```ini
+[Peer]
+PublicKey = <arthur public key>
+Endpoint = <arthur-public-ip>:51820
+AllowedIPs = 10.100.0.0/24
+```
 
-3. Add a new entry to the `peers` list in `default.nix`, picking the next available IP:
+## Adding a new peer
 
-   ```nix
-   {
-     publicKey = "<contents of public.key>";
-     allowedIPs = [ "10.100.0.4/32" ];
-   }
-   ```
-
-4. On the new device, create/edit `/etc/wireguard/wg0.conf`:
-
-   ```ini
-   [Interface]
-   Address = 10.100.0.4/24
-   PrivateKey = <contents of private.key>
-
-   [Peer]
-   PublicKey = <contents of server-public.key>
-   Endpoint = <server-public-ip>:51820
-   AllowedIPs = 0.0.0.0/0  # route all traffic, or 10.100.0.0/24 for VPN only
-   ```
-
-   Then bring it up with `wg-quick up wg0`.
-
-5. Rebuild: `sudo nixos-rebuild switch --flake /etc/nix-darwin`
-
-## Removing a peer
-
-1. Delete the peer entry from the `peers` list in `default.nix`.
-2. Optionally remove the corresponding public key file.
-3. Rebuild: `sudo nixos-rebuild switch --flake /etc/nix-darwin`
+1. Generate keypair on the device.
+2. Add a peer block in `server.nix` with the next available IP (10.100.0.5/32, etc.).
+3. Configure the device to connect to the arthur (Endpoint = arthur-ip:51820, AllowedIPs = 10.100.0.0/24).
+4. Rebuild arthur: `nixos-rebuild switch --flake .#arthur`.

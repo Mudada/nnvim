@@ -1,0 +1,39 @@
+log:
+  level: info
+  job_level: info
+
+runner:
+  file: .runner
+  capacity: 2
+  timeout: 3h
+  shutdown_timeout: 3h
+  insecure: false
+  fetch_timeout: 30s
+  fetch_interval: 2s
+  report_interval: 1s
+  labels: []
+
+cache:
+  enabled: true
+  port: 0
+
+container:
+  network: ""
+  docker_host: "unix:///run/podman/podman.sock"
+  force_pull: false
+  force_rebuild: false
+
+host:
+  workdir_parent:
+
+server:
+  connections:
+    codeberg:
+      url: https://codeberg.org/
+      uuid: 4f2a7564-baa5-4f4e-ab4d-25edf40578bd
+      # Token is loaded from /etc/forgejo-runner/runner-token on the host
+      # into a per-unit credential tmpfs by systemd LoadCredential.
+      # Place it as root:root 0400 before first deploy.
+      token_url: file:$CREDENTIALS_DIRECTORY/runner-token
+      labels:
+        - self-hosted

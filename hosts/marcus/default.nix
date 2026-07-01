@@ -3,20 +3,19 @@
   ...
 }:
 let
-  username = "mudada";
-  email = "mael.nicolas77@gmail.com";
+  username = "marcus";
+  email = "github@t1fr.fr";
   user = { inherit username email; };
 in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/system
+    ./disko.nix
+    ./system.nix
     ../../modules/server
-    ../../modules/niri
     ../../modules/nvim
-    ../../modules/steam.nix
-    ../../modules/linux
-    ../../modules/wireguard
+    ../../modules/wireguard/client.nix
+    ../../modules/jellyfin
   ];
 
   _module.args = { inherit username email user; };
@@ -24,9 +23,14 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
-  home-manager.users.${username} = ../../home;
+  home-manager.users.${username} = ../../home/server.nix;
   home-manager.extraSpecialArgs = {
     sys = "x86_64-linux";
-    inherit inputs username email user;
+    inherit
+      inputs
+      username
+      email
+      user
+      ;
   };
 }
