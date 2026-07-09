@@ -16,6 +16,7 @@ in
     ../../modules/nvim
     ../../modules/wireguard/client.nix
     ../../modules/jellyfin
+    ../../modules/immich
   ];
 
   _module.args = { inherit username email user; };

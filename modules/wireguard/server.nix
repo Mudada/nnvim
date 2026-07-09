@@ -51,6 +51,11 @@
         publicKey = "VkeUtvWDmKzcxqxeyHULEIDbNBcE3pGBjQMt2K2Czy0=";
         allowedIPs = [ "10.100.0.3/32" ];
       }
+      {
+        # midama tablet
+        publicKey = "Q5SBHPB3pcnBF4ZEp0zbCYCUvqpGoUdnB1SF0K2Mklc=";
+        allowedIPs = [ "10.100.0.5/32" ];
+      }
     ];
   };
 }

@@ -30,7 +30,7 @@
     trusted-users = [ "root" "marcus" ];
   };
 
-  environment.systemPackages = [ pkgs.gitMinimal ];
+  environment.systemPackages = [ pkgs.gitMinimal pkgs.jujutsu ];
 
   users.users.marcus = {
     isNormalUser = true;

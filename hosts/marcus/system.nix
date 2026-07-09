@@ -153,19 +153,48 @@
     fileSystems = [ "/media" ];
   };
 
+  users.users.nginx.extraGroups = [ "acme" ];
+
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      email = "acme-marcus-tls.casing405@passmail.net";
+      dnsProvider = "ovh";
+      environmentFile = "/etc/acme/ovh-credentials";
+    };
+    certs."t1fr.fr" = {
+      domain = "*.t1fr.fr";
+    };
+    certs."pisse.cloud" = {
+      domain = "*.pisse.cloud";
+    };
+  };
+
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
     virtualHosts = {
       "ipod.t1fr.fr" = {
+        useACMEHost = "t1fr.fr";
+        forceSSL = true;
         locations."/" = {
           proxyPass = "http://127.0.0.1:8096";
           proxyWebsockets = true;
         };
       };
       "garage.t1fr.fr" = {
+        useACMEHost = "t1fr.fr";
+        forceSSL = true;
         locations."/" = {
           proxyPass = "http://127.0.0.1:8080";
+          proxyWebsockets = true;
+        };
+      };
+      "caca.t1fr.fr" = {
+        useACMEHost = "t1fr.fr";
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://[::1]:2283";
           proxyWebsockets = true;
         };
       };
