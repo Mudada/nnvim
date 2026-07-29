@@ -8,9 +8,9 @@
 let
 in
 {
-  programs._1password.enable = true;
+  programs._1password.enable = false;
   programs._1password-gui = {
-    enable = true;
+    enable = false;
     polkitPolicyOwners = [ "${username}" ];
   };
 }

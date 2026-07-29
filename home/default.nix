@@ -34,7 +34,6 @@ in
     pkgs.coursier
     pkgs.pgcli
     (pkgs.callPackage ./../packages/monacob2.nix { })
-    pkgs._1password-cli
     pkgs.ragenix
     pkgs.rage
     pkgs.claude-code

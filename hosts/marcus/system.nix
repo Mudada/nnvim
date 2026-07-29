@@ -193,8 +193,9 @@
       "caca.t1fr.fr" = {
         useACMEHost = "t1fr.fr";
         forceSSL = true;
+        extraConfig = "client_max_body_size 50G;";
         locations."/" = {
-          proxyPass = "http://[::1]:2283";
+          proxyPass = "http://127.0.0.1:2283";
           proxyWebsockets = true;
         };
       };

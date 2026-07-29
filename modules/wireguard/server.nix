@@ -17,7 +17,7 @@
   networking.firewall = {
     enable = true;
     allowedUDPPorts = [ 51820 ];
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [ 22 80 443 ];
     # Allow VPN peers to reach each other through this hub (FORWARD chain)
     extraCommands = ''
       iptables -A FORWARD -i wg0 -j ACCEPT

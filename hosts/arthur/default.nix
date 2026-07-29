@@ -30,7 +30,35 @@
     trusted-users = [ "root" "marcus" ];
   };
 
-  environment.systemPackages = [ pkgs.gitMinimal pkgs.jujutsu ];
+  environment.systemPackages = [ pkgs.gitMinimal pkgs.jujutsu pkgs.helix ];
+
+  users.users.nginx.extraGroups = [ "acme" ];
+
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      email = "acme-marcus-tls.casing405@passmail.net";
+      dnsProvider = "ovh";
+      environmentFile = "/etc/acme/ovh-credentials";
+    };
+    certs."pisse.cloud" = {
+      domain = "*.pisse.cloud";
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    virtualHosts."caca.pisse.cloud" = {
+      useACMEHost = "pisse.cloud";
+      forceSSL = true;
+      extraConfig = "client_max_body_size 50G;";
+      locations."/" = {
+        proxyPass = "http://10.100.0.4:2283";
+        proxyWebsockets = true;
+      };
+    };
+  };
 
   users.users.marcus = {
     isNormalUser = true;
