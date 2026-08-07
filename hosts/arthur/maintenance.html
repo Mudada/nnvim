@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coming back soon</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .poop {
+      position: fixed;
+      font-size: 28vw;
+      opacity: 0.04;
+      user-select: none;
+      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(2px);
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(-50%, -50%) rotate(-4deg) scale(1); }
+      50%       { transform: translate(-50%, -54%) rotate(4deg) scale(1.03); }
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.75rem; }
+    p { color: #888; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="poop">💩</div>
+  <div class="content">
+    <h1>Coming back soon</h1>
+    <p>Le pipi est parti mais il reviendra quand le B l'aura rebranché.</p>
+  </div>
+</body>
+</html>

@@ -52,10 +52,17 @@
     virtualHosts."caca.pisse.cloud" = {
       useACMEHost = "pisse.cloud";
       forceSSL = true;
-      extraConfig = "client_max_body_size 50G;";
+      extraConfig = ''
+        client_max_body_size 50G;
+        error_page 502 503 504 /maintenance.html;
+      '';
       locations."/" = {
         proxyPass = "http://10.100.0.4:2283";
         proxyWebsockets = true;
+      };
+      locations."= /maintenance.html" = {
+        alias = "${pkgs.writeText "maintenance.html" (builtins.readFile ./maintenance.html)}";
+        extraConfig = "internal;";
       };
     };
   };
