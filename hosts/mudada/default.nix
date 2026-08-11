@@ -27,5 +27,6 @@ in
   };
   home-manager.sharedModules = [
     mac-app-util.homeManagerModules.default
+    ../../modules/pigeons/client.nix
   ];
 }

@@ -1,0 +1,39 @@
+name: Update pigeons
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # every Monday at 6am
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@v14
+
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
+
+      - name: Run nix-update
+        run: nix run nixpkgs#nix-update -- --flake --version-regex 'v(.*)' packages.x86_64-linux.pigeons
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet packages/pigeons.nix; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            VERSION=$(grep 'version = ' packages/pigeons.nix | head -1 | sed 's/.*"\(.*\)".*/\1/')
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Open PR
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "packages/pigeons: update to ${{ steps.diff.outputs.version }}"
+          title: "packages/pigeons: update to ${{ steps.diff.outputs.version }}"
+          branch: "update/pigeons-${{ steps.diff.outputs.version }}"
+          body: "Automated update via `nix-update`."

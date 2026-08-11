@@ -65,6 +65,21 @@
         extraConfig = "internal;";
       };
     };
+    virtualHosts."ipod.pisse.cloud" = {
+      useACMEHost = "pisse.cloud";
+      forceSSL = true;
+      extraConfig = ''
+        error_page 502 503 504 /maintenance.html;
+      '';
+      locations."/" = {
+        proxyPass = "http://10.100.0.4:8096";
+        proxyWebsockets = true;
+      };
+      locations."= /maintenance.html" = {
+        alias = "${pkgs.writeText "maintenance.html" (builtins.readFile ./maintenance.html)}";
+        extraConfig = "internal;";
+      };
+    };
   };
 
   users.users.marcus = {

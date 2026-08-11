@@ -129,5 +129,11 @@
       nixosConfigurations.arthur = mkNixos ./hosts/arthur;
       darwinConfigurations.mudada = mkDarwin ./hosts/mudada;
       darwinConfigurations.tangui = mkDarwin ./hosts/tangui;
+
+      packages = nixpkgs.lib.genAttrs
+        [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ]
+        (system: {
+          pigeons = nixpkgs.legacyPackages.${system}.callPackage ./packages/pigeons.nix { };
+        });
     };
 }

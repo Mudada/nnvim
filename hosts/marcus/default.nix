@@ -17,6 +17,7 @@ in
     ../../modules/wireguard/client.nix
     ../../modules/jellyfin
     ../../modules/immich
+    ../../modules/pigeons/server.nix
   ];
 
   _module.args = { inherit username email user; };
