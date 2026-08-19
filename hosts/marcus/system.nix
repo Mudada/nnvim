@@ -202,6 +202,26 @@
     };
   };
 
+  users.users.nobody.extraGroups = [ "jellyfin" ];
+
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "security" = "user";
+        "map to guest" = "Bad User";
+      };
+      music = {
+        "path" = "/media/jellyfin/music";
+        "browseable" = "yes";
+        "read only" = "yes";
+        "guest ok" = "yes";
+      };
+    };
+  };
+
   services.filebrowser = {
     enable = true;
     settings = {
