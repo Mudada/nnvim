@@ -41,6 +41,7 @@ in
     pkgs.anki-bin
     pkgs.rustup
     pkgs.signal-desktop
+    pkgs.qpdf
   ];
 
   programs.zen-browser = {

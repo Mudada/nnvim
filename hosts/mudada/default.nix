@@ -23,10 +23,14 @@ in
   home-manager.users.${username} = ../../home;
   home-manager.extraSpecialArgs = {
     sys = "aarch64-darwin";
-    inherit inputs username email user;
+    inherit
+      inputs
+      username
+      email
+      user
+      ;
   };
   home-manager.sharedModules = [
     mac-app-util.homeManagerModules.default
-    ../../modules/pigeons/client.nix
   ];
 }

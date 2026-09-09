@@ -75,10 +75,6 @@ in
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  # nix-homebrew pins taps as nix store symlinks with no git remote; the patched brew used during
-  # activation has HOMEBREW_REQUIRE_TAP_TRUST=true by default and rejects them as "untrusted".
-  # Pinning via flake inputs already provides the security guarantee that tap trust would give.
-  environment.variables.HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
 
   nix-homebrew = {
     enable = true;
@@ -86,6 +82,7 @@ in
     user = username;
     taps = taps;
     mutableTaps = true; # must for cc-clamav
+    trust.taps = [ "joemiller/taps" ];
   };
 
   # Fix Stremio codesigning after homebrew upgrade
