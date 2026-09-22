@@ -17,6 +17,8 @@ in
     ../../modules/wireguard/client.nix
     ../../modules/jellyfin
     ../../modules/immich
+    ../../modules/pocket-id
+    ../../modules/outline
   ];
 
   _module.args = { inherit username email user; };

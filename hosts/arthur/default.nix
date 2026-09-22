@@ -80,6 +80,22 @@
         extraConfig = "internal;";
       };
     };
+    virtualHosts."basquettes.pisse.cloud" = {
+      useACMEHost = "pisse.cloud";
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://10.100.0.4:1411";
+        proxyWebsockets = true;
+      };
+    };
+    virtualHosts."proute.pisse.cloud" = {
+      useACMEHost = "pisse.cloud";
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://10.100.0.4:3000";
+        proxyWebsockets = true;
+      };
+    };
   };
 
   users.users.marcus = {
