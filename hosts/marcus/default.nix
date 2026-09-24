@@ -19,6 +19,7 @@ in
     ../../modules/immich
     ../../modules/pocket-id
     ../../modules/outline
+    ../../modules/nocodb
   ];
 
   _module.args = { inherit username email user; };

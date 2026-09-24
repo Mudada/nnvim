@@ -92,7 +92,7 @@
       useACMEHost = "pisse.cloud";
       forceSSL = true;
       locations."/" = {
-        proxyPass = "http://10.100.0.4:3000";
+        proxyPass = "http://10.100.0.4:8085";
         proxyWebsockets = true;
       };
     };

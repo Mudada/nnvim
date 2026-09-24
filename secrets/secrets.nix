@@ -25,4 +25,6 @@ in
     mudada
     marcusHost
   ];
+  "nocodb-env.age".publicKeys = [ marcusHost ];
+  "nocodb-db-password.age".publicKeys = [ marcusHost ];
 }
