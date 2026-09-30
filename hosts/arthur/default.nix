@@ -88,14 +88,8 @@
         proxyWebsockets = true;
       };
     };
-    virtualHosts."proute.pisse.cloud" = {
-      useACMEHost = "pisse.cloud";
-      forceSSL = true;
-      locations."/" = {
-        proxyPass = "http://10.100.0.4:8085";
-        proxyWebsockets = true;
-      };
-    };
+    # proute.pisse.cloud removed — was outline, then nocodb, both deactivated on marcus.
+    # Reserved for whatever's next (AFFiNE).
   };
 
   users.users.marcus = {

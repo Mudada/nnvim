@@ -18,8 +18,8 @@ in
     ../../modules/jellyfin
     ../../modules/immich
     ../../modules/pocket-id
-    ../../modules/outline
-    ../../modules/nocodb
+    # ../../modules/outline  # deactivated — module kept, not imported. See proute.pisse.cloud history.
+    # ../../modules/nocodb   # deactivated — module kept, not imported.
   ];
 
   _module.args = { inherit username email user; };
