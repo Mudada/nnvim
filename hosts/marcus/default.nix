@@ -20,6 +20,7 @@ in
     ../../modules/pocket-id
     # ../../modules/outline  # deactivated — module kept, not imported. See proute.pisse.cloud history.
     # ../../modules/nocodb   # deactivated — module kept, not imported.
+    ../../modules/affine
   ];
 
   _module.args = { inherit username email user; };

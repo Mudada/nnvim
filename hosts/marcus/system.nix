@@ -161,6 +161,14 @@
       email = "acme-marcus-tls.casing405@passmail.net";
       dnsProvider = "ovh";
       environmentFile = "/etc/acme/ovh-credentials";
+      # lego verifies the DNS-01 TXT record via the system resolvers, and marcus's include
+      # an IPv6 one it has no route to ("network is unreachable"), so the propagation check
+      # timed out even though the record was created. Pin a resolver reachable over IPv4.
+      dnsResolver = "1.1.1.1:53";
+      # Skip lego's own propagation polling and just wait: it was timing out against local
+      # resolvers holding a stale NXDOMAIN, while Let's Encrypt itself validates against
+      # OVH's authoritative servers and would have passed.
+      extraLegoFlags = [ "--dns.propagation.wait=180s" ];
     };
     certs."t1fr.fr" = {
       domain = "*.t1fr.fr";

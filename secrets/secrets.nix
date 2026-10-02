@@ -27,4 +27,5 @@ in
   ];
   "nocodb-env.age".publicKeys = [ marcusHost ];
   "nocodb-db-password.age".publicKeys = [ marcusHost ];
+  "affine-env.age".publicKeys = [ marcusHost ];
 }

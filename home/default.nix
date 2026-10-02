@@ -34,6 +34,7 @@ in
     pkgs.coursier
     pkgs.pgcli
     (pkgs.callPackage ./../packages/monacob2.nix { })
+    (pkgs.callPackage ./../packages/affine-mcp-server.nix { })
     pkgs.ragenix
     pkgs.rage
     pkgs.claude-code

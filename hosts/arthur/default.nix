@@ -40,6 +40,10 @@
       email = "acme-marcus-tls.casing405@passmail.net";
       dnsProvider = "ovh";
       environmentFile = "/etc/acme/ovh-credentials";
+      # Skip lego's own propagation polling and just wait: it was timing out on a stale
+      # NXDOMAIN from the local resolver for _acme-challenge, though the record had been
+      # created. Let's Encrypt validates against OVH's authoritative servers directly.
+      extraLegoFlags = [ "--dns.propagation.wait=180s" ];
     };
     certs."pisse.cloud" = {
       domain = "*.pisse.cloud";
@@ -88,8 +92,17 @@
         proxyWebsockets = true;
       };
     };
-    # proute.pisse.cloud removed — was outline, then nocodb, both deactivated on marcus.
-    # Reserved for whatever's next (AFFiNE).
+    virtualHosts."proute.pisse.cloud" = {
+      useACMEHost = "pisse.cloud";
+      forceSSL = true;
+      # Blob uploads (images/attachments) go through here; nginx's 1m default would reject them.
+      extraConfig = "client_max_body_size 100M;";
+      locations."/" = {
+        proxyPass = "http://10.100.0.4:3010";
+        # AFFiNE syncs edits over socket.io.
+        proxyWebsockets = true;
+      };
+    };
   };
 
   users.users.marcus = {
